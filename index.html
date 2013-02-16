@@ -14,7 +14,7 @@
   <title>milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="I put together a quick workon clone for the fish&#8217;s fish shell. Definitely nothing as complete or useful as virtualenvwrapper, but it fixes my &hellip;">
+  <meta name="description" content="I&#8217;ve been working with PyAudio lately, working on a project to synchronize sound streams across multiple devices. Nothing to say on that front &hellip;">
   
 
 
@@ -56,6 +56,76 @@
       <div class="row">
 <div class="blog-index nine columns">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/16/making-noise-in-python/">Making Noise in Python</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-16T14:44:00-08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I&#8217;ve been working with <a href="https://github.com/bastibe/PyAudio">PyAudio</a> lately, working on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:</p>
+
+<pre><code>import math
+import numpy
+import pyaudio
+
+
+def sine(frequency, length, rate):
+    length = int(length * rate)
+    factor = float(frequency) * (math.pi * 2) / rate
+    return numpy.sin(numpy.arange(length) * factor)
+
+
+def play_tone(stream, frequency=440, length=1, rate=44100):
+    chunks = []
+    chunks.append(sine(frequency, length, rate))
+
+    chunk = numpy.concatenate(chunks) * 0.25
+
+    stream.write(chunk.astype(numpy.float32).tostring())
+
+
+if __name__ == '__main__':
+    SAMPLE_RATE = 44100
+
+    p = pyaudio.PyAudio()
+    stream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=1)
+
+    play_tone(stream)
+
+    stream.close()
+    p.terminate()
+</code></pre>
+
+<p>This simply generates a sine wave of a specified frequency and length, and writes it out to an already open PyAudio stream. A pleasant tone is produced. It&#8217;s not too fancy, but it beats loading a wave file from disk.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -215,6 +285,10 @@ set -gx WORKON_OPEN_SUBLIME True
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/02/16/making-noise-in-python/">Making noise in Python</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/02/15/simple-workon-command-for-fish-shell/">Simple &#8216;workon&#8217; Command for fish shell</a>
