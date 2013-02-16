@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: virtualenvwrapper | milkandtang]]></title>
+  <link href="http://milkandtang.com/blog/categories/virtualenvwrapper/atom.xml" rel="self"/>
+  <link href="http://milkandtang.com/"/>
+  <updated>2013-02-16T00:57:47-08:00</updated>
+  <id>http://milkandtang.com/</id>
+  <author>
+    <name><![CDATA[Nathan Wittstock]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Simple 'workon' Command for fish shell]]></title>
+    <link href="http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell/"/>
+    <updated>2013-02-15T00:15:00-08:00</updated>
+    <id>http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell</id>
+    <content type="html"><![CDATA[<p>I put together a quick <code>workon</code> clone for the <a href="http://www.ridiculousfish.com/shell/">fish's fish shell</a>. Definitely nothing as complete or useful as <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a>, but it fixes my need: switching simply between virtualenv's and projects.</p>
+
+<h2>Installation</h2>
+
+<p>First, create a function file <code>~/.config/fish/functions/workon.fish</code> with this defintion:</p>
+
+<pre><code>function workon -d "Activate virtual environment in $WORKON_HOME"
+  set tgt {$WORKON_HOME}/$argv[1]
+  if [ -d $tgt ]
+    cd $tgt
+
+    # deactivate any active venv, and activate the target
+    # this needs to be rewritten with the `type` fish command
+    if test -n "$VIRTUAL_ENV"
+      deactivate
+    end
+
+    . bin/activate.fish
+
+    # open sublime text and change to working directory
+    if test -n "$WORKON_OPEN_SUBLIME"
+      open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
+    end
+
+    if test -n "$WORKON_SRC_DIR"
+      cd {$WORKON_SRC_DIR}/{$argv[1]}
+    end
+  else
+    echo "$tgt not found"
+  end
+end
+
+complete -c workon -a "(cd $WORKON_HOME; ls -d *)"
+</code></pre>
+
+<p>Then, define the necessary environment variables in your <code>~/.config/fish/config.fish</code> file:</p>
+
+<pre><code>set -gx WORKON_HOME ~/Documents/virtual_environments
+set -gx WORKON_SRC_DIR ~/Documents/code
+set -gx WORKON_OPEN_SUBLIME True
+</code></pre>
+
+<p>As you might imagine, this is set up for how I work, but it wouldn't be difficult to customize for your needs. Since this uses the virtualenv-provided <code>activate.fish</code> script, the <code>deactivate</code> command works as expected, as well as any other usual functions.</p>
+]]></content>
+  </entry>
+  
+</feed>

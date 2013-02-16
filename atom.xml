@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[milkandtang]]></title>
+  <link href="http://milkandtang.com/atom.xml" rel="self"/>
+  <link href="http://milkandtang.com/"/>
+  <updated>2013-02-16T00:57:47-08:00</updated>
+  <id>http://milkandtang.com/</id>
+  <author>
+    <name><![CDATA[Nathan Wittstock]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Simple 'workon' Command for fish shell]]></title>
+    <link href="http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell/"/>
+    <updated>2013-02-15T00:15:00-08:00</updated>
+    <id>http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell</id>
+    <content type="html"><![CDATA[<p>I put together a quick <code>workon</code> clone for the <a href="http://www.ridiculousfish.com/shell/">fish&#8217;s fish shell</a>. Definitely nothing as complete or useful as <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a>, but it fixes my need: switching simply between virtualenv&#8217;s and projects.</p>
+
+<h2>Installation</h2>
+
+<p>First, create a function file <code>~/.config/fish/functions/workon.fish</code> with this defintion:</p>
+
+<pre><code>function workon -d "Activate virtual environment in $WORKON_HOME"
+  set tgt {$WORKON_HOME}/$argv[1]
+  if [ -d $tgt ]
+    cd $tgt
+
+    # deactivate any active venv, and activate the target
+    # this needs to be rewritten with the `type` fish command
+    if test -n "$VIRTUAL_ENV"
+      deactivate
+    end
+
+    . bin/activate.fish
+
+    # open sublime text and change to working directory
+    if test -n "$WORKON_OPEN_SUBLIME"
+      open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
+    end
+
+    if test -n "$WORKON_SRC_DIR"
+      cd {$WORKON_SRC_DIR}/{$argv[1]}
+    end
+  else
+    echo "$tgt not found"
+  end
+end
+
+complete -c workon -a "(cd $WORKON_HOME; ls -d *)"
+</code></pre>
+
+<p>Then, define the necessary environment variables in your <code>~/.config/fish/config.fish</code> file:</p>
+
+<pre><code>set -gx WORKON_HOME ~/Documents/virtual_environments
+set -gx WORKON_SRC_DIR ~/Documents/code
+set -gx WORKON_OPEN_SUBLIME True
+</code></pre>
+
+<p>As you might imagine, this is set up for how I work, but it wouldn&#8217;t be difficult to customize for your needs. Since this uses the virtualenv-provided <code>activate.fish</code> script, the <code>deactivate</code> command works as expected, as well as any other usual functions.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Is this Daylight Saving Time?]]></title>
+    <link href="http://milkandtang.com/blog/2012/12/13/is-this-daylight-saving-time/"/>
+    <updated>2012-12-13T00:17:00-08:00</updated>
+    <id>http://milkandtang.com/blog/2012/12/13/is-this-daylight-saving-time</id>
+    <content type="html"><![CDATA[<p><a href="http://isthisdst.us">Is this Daylight Saving Time?</a> is a single-page site to determine your DST status. You can check out the source on <a href="https://github.com/fardog/isthisdst/">GitHub</a>.</p>
+
+<p>It&#8217;s an overblown build—using <a href="http://djangoproject.com">Django</a> for such a small site isn&#8217;t necessary—but it was more of an exercise than anything. The implementation is my first attempt at some best practices, namely <a href="http://fabfile.org">fabric</a> for automated deployment out of git, and <a href="https://github.com/cyberdelia/django-pipeline">pipeline</a> for css/script minification.</p>
+
+<p>Other packages used include <a href="http://pypi.python.org/pypi/pytz">pytz</a> for timezone calculations and <a href="https://github.com/boto/boto">boto</a> for automated upload of static assets to <a href="http://aws.amazon.com">S3</a>. <a href="http://foundation.zurb.com">Zurb Foundation</a> was used for the frontend.</p>
+
+<p>Geolocation is done using the City and Country IP databases from <a href="http://www.maxmind.com/en/geolocation_landing">MaxMind</a> and uses the Django-included <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoip/">django.contrib.gis.geoip</a> to read them. That resolves the lat/long, which I then send to <a href="http://www.geonames.org/">GeoNames</a> for to get the timezone. That result is cached in a local SQLite database to minimize lookups to GeoNames.</p>
+
+<p>Overall, it was a great learning experience. Like all great learning experiences it took entirely longer than I&#8217;d originally intended; all part of the fun.</p>
+]]></content>
+  </entry>
+  
+</feed>
