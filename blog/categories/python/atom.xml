@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-02-16T01:44:18-08:00</updated>
+  <updated>2013-02-16T14:08:06-08:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -37,11 +37,20 @@
 
     . bin/activate.fish
 
-    # open sublime text and change to working directory
+    if test (count $argv) -gt 1
+      if test $argv[2] = "open"
+        set -gx WORKON_OPEN_SUBLIME True
+      end
+    else
+      set -ge WORKON_OPEN_SUBLIME
+    end
+
+    # open sublime text
     if test -n "$WORKON_OPEN_SUBLIME"
       open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
     end
 
+    # change to working dir
     if test -n "$WORKON_SRC_DIR"
       cd {$WORKON_SRC_DIR}/{$argv[1]}
     end

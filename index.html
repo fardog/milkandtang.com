@@ -104,11 +104,20 @@
 
     . bin/activate.fish
 
-    # open sublime text and change to working directory
+    if test (count $argv) -gt 1
+      if test $argv[2] = "open"
+        set -gx WORKON_OPEN_SUBLIME True
+      end
+    else
+      set -ge WORKON_OPEN_SUBLIME
+    end
+
+    # open sublime text
     if test -n "$WORKON_OPEN_SUBLIME"
       open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
     end
 
+    # change to working dir
     if test -n "$WORKON_SRC_DIR"
       cd {$WORKON_SRC_DIR}/{$argv[1]}
     end
