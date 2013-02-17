@@ -121,7 +121,8 @@ def play_tone(stream, frequency=440, length=1, rate=44100):
 
 if __name__ == '__main__':
     p = pyaudio.PyAudio()
-    stream = p.open(format=pyaudio.paFloat32, channels=1, rate=44100, output=1)
+    stream = p.open(format=pyaudio.paFloat32,
+                    channels=1, rate=44100, output=1)
 
     play_tone(stream)
 
