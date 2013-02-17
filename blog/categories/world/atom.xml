@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[milkandtang]]></title>
-  <link href="http://milkandtang.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: World | milkandtang]]></title>
+  <link href="http://milkandtang.com/blog/categories/world/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
   <updated>2013-02-16T19:34:31-08:00</updated>
   <id>http://milkandtang.com/</id>
@@ -14,130 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Making noise in Python]]></title>
-    <link href="http://milkandtang.com/blog/2013/02/16/making-noise-in-python/"/>
-    <updated>2013-02-16T14:44:00-08:00</updated>
-    <id>http://milkandtang.com/blog/2013/02/16/making-noise-in-python</id>
-    <content type="html"><![CDATA[<p>I&#8217;ve been working with <a href="https://github.com/bastibe/PyAudio">PyAudio</a> lately, working on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:</p>
-
-<pre><code>import math
-import numpy
-import pyaudio
-
-
-def sine(frequency, length, rate):
-    length = int(length * rate)
-    factor = float(frequency) * (math.pi * 2) / rate
-    return numpy.sin(numpy.arange(length) * factor)
-
-
-def play_tone(stream, frequency=440, length=1, rate=44100):
-    chunks = []
-    chunks.append(sine(frequency, length, rate))
-
-    chunk = numpy.concatenate(chunks) * 0.25
-
-    stream.write(chunk.astype(numpy.float32).tostring())
-
-
-if __name__ == '__main__':
-    p = pyaudio.PyAudio()
-    stream = p.open(format=pyaudio.paFloat32,
-                    channels=1, rate=44100, output=1)
-
-    play_tone(stream)
-
-    stream.close()
-    p.terminate()
-</code></pre>
-
-<p>This simply generates a sine wave of a specified frequency and length, and writes it out to an already open PyAudio stream. A pleasant tone is produced. It&#8217;s not too fancy, but it beats loading a wave file from disk.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Simple 'workon' Command for fish shell]]></title>
-    <link href="http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell/"/>
-    <updated>2013-02-15T00:15:00-08:00</updated>
-    <id>http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell</id>
-    <content type="html"><![CDATA[<p>I put together a quick <code>workon</code> clone for the <a href="http://www.ridiculousfish.com/shell/">fish&#8217;s fish shell</a>. Definitely nothing as complete or useful as <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a>, but it fixes my need: switching simply between virtualenv&#8217;s and projects.</p>
-
-<h2>Installation</h2>
-
-<p>First, create a function file <code>~/.config/fish/functions/workon.fish</code> with this defintion:</p>
-
-<pre><code>function workon -d "Activate virtual environment in $WORKON_HOME"
-  set tgt {$WORKON_HOME}/$argv[1]
-  if [ -d $tgt ]
-    cd $tgt
-
-    # deactivate any active venv, and activate the target
-    # this needs to be rewritten with the `type` fish command
-    if test -n "$VIRTUAL_ENV"
-      deactivate
-    end
-
-    . bin/activate.fish
-
-    if test (count $argv) -gt 1
-      if test $argv[2] = "open"
-        set -gx WORKON_OPEN_SUBLIME True
-      end
-    else
-      set -ge WORKON_OPEN_SUBLIME
-    end
-
-    # open sublime text
-    if test -n "$WORKON_OPEN_SUBLIME"
-      open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
-    end
-
-    # change to working dir
-    if test -n "$WORKON_SRC_DIR"
-      cd {$WORKON_SRC_DIR}/{$argv[1]}
-    end
-  else
-    echo "$tgt not found"
-  end
-end
-
-complete -c workon -a "(cd $WORKON_HOME; ls -d *)"
-</code></pre>
-
-<p>Then, define the necessary environment variables in your <code>~/.config/fish/config.fish</code> file:</p>
-
-<pre><code>set -gx WORKON_HOME ~/Documents/virtual_environments
-set -gx WORKON_SRC_DIR ~/Documents/code
-set -gx WORKON_OPEN_SUBLIME True
-</code></pre>
-
-<p>As you might imagine, this is set up for how I work, but it wouldn&#8217;t be difficult to customize for your needs. Since this uses the virtualenv-provided <code>activate.fish</code> script, the <code>deactivate</code> command works as expected, as well as any other usual functions.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Is this Daylight Saving Time?]]></title>
-    <link href="http://milkandtang.com/blog/2012/12/13/is-this-daylight-saving-time/"/>
-    <updated>2012-12-13T00:17:00-08:00</updated>
-    <id>http://milkandtang.com/blog/2012/12/13/is-this-daylight-saving-time</id>
-    <content type="html"><![CDATA[<p><a href="http://isthisdst.us">Is this Daylight Saving Time?</a> is a single-page site to determine your DST status. You can check out the source on <a href="https://github.com/fardog/isthisdst/">GitHub</a>.</p>
-
-<p>It&#8217;s an overblown build—using <a href="http://djangoproject.com">Django</a> for such a small site isn&#8217;t necessary—but it was more of an exercise than anything. The implementation is my first attempt at some best practices, namely <a href="http://fabfile.org">fabric</a> for automated deployment out of git, and <a href="https://github.com/cyberdelia/django-pipeline">pipeline</a> for css/script minification.</p>
-
-<p>Other packages used include <a href="http://pypi.python.org/pypi/pytz">pytz</a> for timezone calculations and <a href="https://github.com/boto/boto">boto</a> for automated upload of static assets to <a href="http://aws.amazon.com">S3</a>. <a href="http://foundation.zurb.com">Zurb Foundation</a> was used for the frontend.</p>
-
-<p>Geolocation is done using the City and Country IP databases from <a href="http://www.maxmind.com/en/geolocation_landing">MaxMind</a> and uses the Django-included <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoip/">django.contrib.gis.geoip</a> to read them. That resolves the lat/long, which I then send to <a href="http://www.geonames.org/">GeoNames</a> for to get the timezone. That result is cached in a local SQLite database to minimize lookups to GeoNames.</p>
-
-<p>Overall, it was a great learning experience. Like all great learning experiences it took entirely longer than I&#8217;d originally intended; all part of the fun.</p>
-]]></content>
-  </entry>
-  
-  <entry>
     <title type="html"><![CDATA[Fixing a Famicom Disk System]]></title>
     <link href="http://milkandtang.com/blog/2010/03/21/fixing-a-famicom-disk-system/"/>
     <updated>2010-03-21T00:00:00-07:00</updated>
     <id>http://milkandtang.com/blog/2010/03/21/fixing-a-famicom-disk-system</id>
-    <content type="html"><![CDATA[<p><em>Copied over from my old blog when it was decommissioned. Preserving it here since it&#8217;s helped some people in the past.</em></p>
+    <content type="html"><![CDATA[<p><em>Copied over from my old blog when it was decommissioned. Preserving it here since it's helped some people in the past.</em></p>
 
 <p>This isn’t the usual fare from this blog, but this is good information that took me quite some time to find. I’m also an avid video game collector, and i recently picked up a <a href="http://en.wikipedia.org/wiki/Twin_Famicom">Sharp Twin Famicom</a> and a few <a href="http://en.wikipedia.org/wiki/Family_Computer_Disk_System">Famicom Disk System</a> games; notably Kid Icarus and the infamous <a href="http://en.wikipedia.org/wiki/Doki_Doki_Panic">Doki Doki Panic!</a>, which later became the USA/World <em>Super Mario Brothers 2</em>.</p>
 
@@ -148,7 +29,7 @@ set -gx WORKON_OPEN_SUBLIME True
 <p>I found a lot of passing mentions to aligning the spindle, but no real good information on how to do so, until I came across this <a href="http://digitpress.com/forum/showpost.php?p=364900&amp;postcount=97">forum post</a> by “Zach”:</p>
 
 <blockquote><p>The tough part (for me, at least) comes when you have to phyiscally align the drive. The first time I replaced a belt, the drive worked (without any alignment) for most of my games, but not some others.<br/>
-[&#8230;]<br/>
+[...]<br/>
 So what you have to do is reach in from the front of the drive, loosen the SMALL black allen head set screw that holds the grey metal block to the spindle, then rotate the big gear with the belt slot around until it clicks (you’ll see the spring-loaded piece snap into place, dropping down a steep notch). At that point, you have to rotate the big gear another quarter turn. This is the position where you want the assembly to be when you have the little, black set screw pointing straight out the front of the drive, so line up the smal, grey metal disk pickup block (which should be free to spin around the spindle since the set screw is loose) , and tighten the set screw with your little allen wrench. Try it out and see if more disks are loading (or see if you’ve messed up the drive even more!)</p></blockquote>
 
 <p>I followed his instructions by performing the following:</p>
@@ -211,7 +92,7 @@ ERROR 29 The disk unit and the same period can’t take it.<br/>
 ERROR 30 Disk card too full to save.<br/>
 ERROR 31 Data number of a disk card doesn’t match up.</p></blockquote>
 
-<p>Then, a commenter named &#8220;Jon&#8221; posted the following:</p>
+<p>Then, a commenter named "Jon" posted the following:</p>
 
 <blockquote><p>Thanks for posting this! When I got a “broken” FDS recently this helped direct me towards the cure.</p>
 
