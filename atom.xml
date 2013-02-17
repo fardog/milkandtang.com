@@ -4,7 +4,7 @@
   <title><![CDATA[milkandtang]]></title>
   <link href="http://milkandtang.com/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-02-17T14:08:12-08:00</updated>
+  <updated>2013-02-17T15:34:42-08:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -18,7 +18,7 @@
     <link href="http://milkandtang.com/blog/2013/02/16/making-noise-in-python/"/>
     <updated>2013-02-16T14:44:00-08:00</updated>
     <id>http://milkandtang.com/blog/2013/02/16/making-noise-in-python</id>
-    <content type="html"><![CDATA[<p>I&#8217;ve been working with <a href="https://github.com/bastibe/PyAudio">PyAudio</a> lately, working on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:</p>
+    <content type="html"><![CDATA[<p>I&#8217;ve been working with <a href="https://github.com/bastibe/PyAudio">PyAudio</a> lately, on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:</p>
 
 <pre><code>import math
 import numpy
