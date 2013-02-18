@@ -9,6 +9,12 @@
   App.net: @fardog
   Location: Portland, OR
 
+/* THANKS */
+  GitHub, a slick repo and web host
+  Octopress and Jekyll for making blog maintenance fun again
+  Don Melton (http://donmelton.com/) who's cool, minimal presentation
+    was an obvious inspiration I hope to make more my own.
+
 /* SITE */
   Standards: HTML5, CSS3
   Components: Zurb Foundation, Modernizr
