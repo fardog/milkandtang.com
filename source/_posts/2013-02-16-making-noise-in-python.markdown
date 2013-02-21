@@ -6,7 +6,7 @@ comments: true
 categories: [code, Python, PyAudio, sound, synthesizers]
 ---
 
-I've been working with [PyAudio](https://github.com/bastibe/PyAudio) lately, working on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:
+I've been working with [PyAudio](https://github.com/bastibe/PyAudio) lately, on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:
 
 	import math
 	import numpy
