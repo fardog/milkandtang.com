@@ -14,7 +14,7 @@
   <title>milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="I&#8217;ve been working with PyAudio lately, on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but &hellip;">
+  <meta name="description" content="Why not take that useless key, and make it useful? The Compose Key—formerly present on many Unix keyboards of old—isn&#8217;t present on most modern &hellip;">
   
 
 
@@ -73,6 +73,50 @@
       <div class="row">
 <div class="blog-index nine columns">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/22/using-caps-lock-as-a-compose-key-in-xfce4/">Using Caps-Lock as a Compose Key in XFCE4</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-22T14:03:00-08:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Why not take that useless key, and make it useful? The <a href="http://en.wikipedia.org/wiki/Compose_key">Compose Key</a>—formerly present on many Unix keyboards of old—isn&#8217;t present on most modern laptops.</p>
+
+<p>In XFCE, this is a little more cumbersome than Gnome, since there isn&#8217;t a graphical interface for <code>setxkbmap</code>, but these two commands will swap the Caps lock for a compose key:</p>
+
+<pre><code>/usr/bin/setxkbmap -option "ctrl:nocaps"  # disables caps lock
+/usr/bin/setxkbmap -option "compose:caps"  # sets caps key to compose
+</code></pre>
+
+<p>To make this active at login, you can add two entries to your &#8220;Session and Startup&#8221; -> &#8220;Application Autostart&#8221; available under the <strong>Settings Manager</strong>. I&#8217;ve named mine &#8220;compose0&#8221; and &#8220;compose1&#8221;, each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you&#8217;ll surely be typing.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -419,6 +463,10 @@ ERROR 31 Data number of a disk card doesn’t match up.</p></blockquote>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/02/22/using-caps-lock-as-a-compose-key-in-xfce4/">Using Caps-Lock as a Compose key in XFCE4</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/02/16/making-noise-in-python/">Making noise in Python</a>
