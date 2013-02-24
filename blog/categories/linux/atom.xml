@@ -4,7 +4,7 @@
   <title><![CDATA[Category: linux | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-02-23T21:09:39-08:00</updated>
+  <updated>2013-02-23T21:11:03-08:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -26,7 +26,7 @@
 setxkbmap -option compose:caps  # sets caps key to compose
 </code></pre>
 
-<p>To make this active at login, you can add two entries to your "Session and Startup" -> "Application Autostart" available under the <strong>Settings Manager</strong>. I've named mine "compose0" and "compose1", each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you'll surely be typing.</p>
+<p>To make this active at login, you can add two entries to your "Session and Startup" -> "Application Autostart" available under the <strong>Settings Manager</strong>. I've named mine "compose1" and "compose2", each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you'll surely be typing.</p>
 ]]></content>
   </entry>
   
