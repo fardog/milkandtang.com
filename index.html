@@ -108,8 +108,8 @@
 
 <p>In <a href="http://www.xfce.org/">XFCE</a>, this is a little more cumbersome than Gnome, since there isn&#8217;t a graphical interface for <code>setxkbmap</code>, but these two commands will swap the Caps lock for a compose key:</p>
 
-<pre><code>/usr/bin/setxkbmap -option "ctrl:nocaps"  # disables caps lock
-/usr/bin/setxkbmap -option "compose:caps"  # sets caps key to compose
+<pre><code>/usr/bin/setxkbmap -option ctrl:nocaps  # disables caps lock
+/usr/bin/setxkbmap -option compose:caps  # sets caps key to compose
 </code></pre>
 
 <p>To make this active at login, you can add two entries to your &#8220;Session and Startup&#8221; -> &#8220;Application Autostart&#8221; available under the <strong>Settings Manager</strong>. I&#8217;ve named mine &#8220;compose0&#8221; and &#8220;compose1&#8221;, each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you&#8217;ll surely be typing.</p>

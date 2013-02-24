@@ -4,7 +4,7 @@
   <title><![CDATA[Category: xfce | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/xfce/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-02-23T18:23:25-08:00</updated>
+  <updated>2013-02-23T18:35:17-08:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -22,8 +22,8 @@
 
 <p>In <a href="http://www.xfce.org/">XFCE</a>, this is a little more cumbersome than Gnome, since there isn't a graphical interface for <code>setxkbmap</code>, but these two commands will swap the Caps lock for a compose key:</p>
 
-<pre><code>/usr/bin/setxkbmap -option "ctrl:nocaps"  # disables caps lock
-/usr/bin/setxkbmap -option "compose:caps"  # sets caps key to compose
+<pre><code>/usr/bin/setxkbmap -option ctrl:nocaps  # disables caps lock
+/usr/bin/setxkbmap -option compose:caps  # sets caps key to compose
 </code></pre>
 
 <p>To make this active at login, you can add two entries to your "Session and Startup" -> "Application Autostart" available under the <strong>Settings Manager</strong>. I've named mine "compose0" and "compose1", each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you'll surely be typing.</p>
