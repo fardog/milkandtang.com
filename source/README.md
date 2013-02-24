@@ -15,7 +15,7 @@ Content is provided under a [Creative Commons Attribution 3.0 Unported](http://c
 Octopress License
 -----------------
 
-[milkandtang.com] is powered by Octopress, which is released under the MIT License:
+[milkandtang.com](http://milkandtang.com) is powered by Octopress, which is released under the MIT License:
 
 Copyright © 2009-2011 Brandon Mathis
 
