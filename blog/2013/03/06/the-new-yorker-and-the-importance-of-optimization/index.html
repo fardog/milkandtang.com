@@ -14,7 +14,7 @@
   <title>The New Yorker and the importance of optimization - milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="I have a small obsession web platforms, and discovering what platform a site is using. There are some great tools that help, but nothing beats &hellip;">
+  <meta name="description" content="Update 2013-03-07: Please see the correction at the bottom of this article. I have a small obsession web platforms, and discovering what platform a &hellip;">
   
 
 
@@ -92,6 +92,8 @@
   
 
 
+
+  
 <time datetime="2013-03-06T22:43:00-08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
@@ -101,7 +103,9 @@
   </header>
 
 
-<div class="entry-content"><p>I have a small obsession web platforms, and discovering what platform a site is using. There are some <a href="http://guess.scritch.org/">great tools</a> that help, but nothing beats <a href="https://en.wikipedia.org/wiki/View-source_URI_scheme">viewing the source</a>. Recently I encountered the <a href="http://www.newyorker.com/">New Yorker</a>…</p>
+<div class="entry-content"><p><em>Update 2013-03-07: Please see the correction at the bottom of this article.</em></p>
+
+<p>I have a small obsession web platforms, and discovering what platform a site is using. There are some <a href="http://guess.scritch.org/">great tools</a> that help, but nothing beats <a href="https://en.wikipedia.org/wiki/View-source_URI_scheme">viewing the source</a>. Recently I encountered the <em><a href="http://www.newyorker.com/">New Yorker</a></em>…</p>
 
 <p>It&#8217;s a sight. I encourage you to check the source for yourself, but it&#8217;s a templating system gone wrong. The day I discovered it, I <a href="https://twitter.com/milkandtang/status/304454130448080897">tweeted</a>—</p>
 
@@ -124,6 +128,10 @@
 <p>Now lets talk bandwidth: 16101 bytes is 0.0153 MB—less than two-hundredths of a megabyte—it&#8217;s not much. Now traffic-wise: According to <a href="http://compete.com">Compete</a>, they see 1,103,088 unique visitors per month.</p>
 
 <p>Or, if you prefer: <strong>16.54 GB of newlines per month</strong>, strictly in unique visits to the homepage. Hey, <a href="http://condenast.com">Condé Nast</a>: might be time to optimize?</p>
+
+<p><strong>Correction:</strong> Reddit has <a href="http://www.reddit.com/r/webdev/comments/19u4ho/the_new_yorker_and_its_16gb_of_newlines/">bested me on this one</a>. As the commenters point out, my math is done assuming that the web server isn&#8217;t configured to compress with <a href="http://en.wikipedia.org/wiki/Gzip">gzip</a>—and it is. Since <a href="http://www.http-compression.com/">all major browsers support gzip</a>, the actual impact of <em>The New Yorker&#8217;s</em> excessive newlines is <a href="http://www.reddit.com/r/webdev/comments/19u4ho/the_new_yorker_and_its_16gb_of_newlines/c8rc6ie">minimal</a>.</p>
+
+<p>So, this is more or less an article about the comical result of a templating system than it is about performance. Thanks to those on Reddit that pointed out this error.</p>
 </div>
 
 
@@ -146,7 +154,9 @@
   
 
 
-<time datetime="2013-03-06T22:43:00-08:00" pubdate data-updated="true">Mar 6<span>th</span>, 2013</time>
+
+  
+<time datetime="2013-03-07T09:58:00-08:00" class="updated">Updated Mar 7<span>th</span>, 2013</time>
           
 
 <span class="categories">
