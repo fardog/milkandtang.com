@@ -4,7 +4,7 @@
   <title><![CDATA[Category: code | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-02-23T21:11:03-08:00</updated>
+  <updated>2013-03-07T00:17:21-08:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[The New Yorker and the importance of optimization]]></title>
+    <link href="http://milkandtang.com/blog/2013/03/06/the-new-yorker-and-the-importance-of-optimization/"/>
+    <updated>2013-03-06T22:43:00-08:00</updated>
+    <id>http://milkandtang.com/blog/2013/03/06/the-new-yorker-and-the-importance-of-optimization</id>
+    <content type="html"><![CDATA[<p>I have a small obsession web platforms, and discovering what platform a site is using. There are some <a href="http://guess.scritch.org/">great tools</a> that help, but nothing beats <a href="https://en.wikipedia.org/wiki/View-source_URI_scheme">viewing the source</a>. Recently I encountered the <a href="http://www.newyorker.com/">New Yorker</a>…</p>
+
+<p>It's a sight. I encourage you to check the source for yourself, but it's a templating system gone wrong. The day I discovered it, I <a href="https://twitter.com/milkandtang/status/304454130448080897">tweeted</a>—</p>
+
+<blockquote><p>in the midst of 90 new-lines, sits @NewYorker's <code>&lt;html&gt;</code> tag. a scant 1006 lines later, the <code>&lt;body&gt;</code>.</p></blockquote>
+
+<p>—to no reply. It's for real though: their homepage serves, of this writing, <em>16101 newlines</em>. Many of their tags are surrounded by no less than 30 newlines each. Their <code>&lt;head&gt;</code> contains <em>998</em> alone. So this gets me thinking:</p>
+
+<p>A newline character, usually represented as <code>\n</code> in many languages, but represented by the unicode <code>U+000A</code> tends to be represented as an 8-bit ASCII character, or one byte. For the purposes of this excercise we'll assume exactly that.</p>
+
+<p>In terms of websites:</p>
+
+<ul>
+<li><a href="http://nytimes.com">The New York Times</a> sends 1419 newlines.</li>
+<li><a href="http://apple.com">Apple</a> sends 236</li>
+<li><a href="http://google.com">Google</a> sends 87</li>
+<li><a href="http://reddit.com">Reddit</a> sends 1 newline. One.</li>
+</ul>
+
+
+<p>Now lets talk bandwidth: 16101 bytes is 0.0161 MB—less than two-hundredths of a megabyte—it's not much. Now traffic-wise: According to <a href="http://compete.com">Compete</a>, they see 1,103,088 unique visitors per month.</p>
+
+<p>Or, if you prefer: <strong>17.76 GB of newlines per month</strong>, strictly in unique visits to the homepage. Hey, <a href="http://condenast.com">Condé Nast</a>: might be time to optimize?</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Making noise in Python]]></title>
