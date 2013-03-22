@@ -4,7 +4,7 @@
   <title><![CDATA[milkandtang]]></title>
   <link href="http://milkandtang.com/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-03-07T10:11:12-08:00</updated>
+  <updated>2013-03-22T00:21:15-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -12,6 +12,30 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[vim, fish shell, and vim-sensible]]></title>
+    <link href="http://milkandtang.com/blog/2013/03/22/vim-fish-shell-and-sensible/"/>
+    <updated>2013-03-22T00:07:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2013/03/22/vim-fish-shell-and-sensible</id>
+    <content type="html"><![CDATA[<p>Part of this evening was spent making <code>vim</code> workable for me, the first step was getting some sane defaults. <a href="https://github.com/tpope/vim-sensible">vim-sensible</a> was recommended in several places (as was Tim Pope&#8217;s also excellent <a href="https://github.com/tpope/vim-pathogen">pathogen</a>), but immediately after installation I was getting an error:</p>
+
+<pre><code>Error detected while processing ~/.vim/bundle/vim-sensible/plugin/sensible.vim:
+line   75:
+E484: Can't open file /tmp/v1NmKg8/0
+Press ENTER or type command to continue
+</code></pre>
+
+<p>Frustratingly, line 75 held no obvious suggestions. After some frustrating time troubleshooting, I found it worked fine if I wasn&#8217;t using <code>fish</code> shell.</p>
+
+<p>I&#8217;m not positive why this is the case, but you can fix the error by adding the following line to your <code>.vimrc</code>.</p>
+
+<pre><code>set shell=/bin/sh
+</code></pre>
+
+<p>On next launch of <code>vim</code>, all is resolved.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[The New Yorker and the importance of optimization]]></title>

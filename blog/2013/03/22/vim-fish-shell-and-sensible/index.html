@@ -11,10 +11,10 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Category: Django - milkandtang</title>
+  <title>vim, fish shell, and vim-sensible - milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="Category: Django">
+  <meta name="description" content="Part of this evening was spent making vim workable for me, the first step was getting some sane defaults. vim-sensible was recommended in several &hellip;">
   
 
 
@@ -24,7 +24,7 @@
 
 
   
-  <link rel="canonical" href="http://milkandtang.com/blog/categories/django/">
+  <link rel="canonical" href="http://milkandtang.com/blog/2013/03/22/vim-fish-shell-and-sensible/">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/>
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/>
@@ -72,36 +72,105 @@
     <div id="content">
       <div class="row">
   <div class="nine columns">
-    <article role="article">
+    <article class="hentry" role="article">
       
-      <header>
-        <h1 class="entry-title">Category: Django</h1>
+  <header>
+    
+      <h1 class="entry-title">Vim, Fish Shell, and Vim-sensible</h1>
+    
+    
+      <p class="meta">
         
-      </header>
-      
-      <div id="blog-archives" class="category">
+
+
+
+
+
 
 
 
   
-  <h2>2012</h2>
-
-<article>
-  
-<h1><a href="/blog/2012/12/13/is-this-daylight-saving-time/">Is this Daylight Saving Time?</a></h1>
-<time datetime="2012-12-13T00:17:00-08:00" pubdate><span class='month'>Dec</span> <span class='day'>13</span> <span class='year'>2012</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/django/'>Django</a>, <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/projects/'>projects</a>, <a class='category' href='/blog/categories/zurb-foundation/'>zurb-foundation</a></span>
-</footer>
 
 
-</article>
+<time datetime="2013-03-22T00:07:00-07:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
 
+
+<div class="entry-content"><p>Part of this evening was spent making <code>vim</code> workable for me, the first step was getting some sane defaults. <a href="https://github.com/tpope/vim-sensible">vim-sensible</a> was recommended in several places (as was Tim Pope&#8217;s also excellent <a href="https://github.com/tpope/vim-pathogen">pathogen</a>), but immediately after installation I was getting an error:</p>
+
+<pre><code>Error detected while processing ~/.vim/bundle/vim-sensible/plugin/sensible.vim:
+line   75:
+E484: Can't open file /tmp/v1NmKg8/0
+Press ENTER or type command to continue
+</code></pre>
+
+<p>Frustratingly, line 75 held no obvious suggestions. After some frustrating time troubleshooting, I found it worked fine if I wasn&#8217;t using <code>fish</code> shell.</p>
+
+<p>I&#8217;m not positive why this is the case, but you can fix the error by adding the following line to your <code>.vimrc</code>.</p>
+
+<pre><code>set shell=/bin/sh
+</code></pre>
+
+<p>On next launch of <code>vim</code>, all is resolved.</p>
 </div>
 
-      
+
+      <footer>
+        <p class="meta">
+          
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Nathan Wittstock</span></span>
+
+          
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T00:07:00-07:00" pubdate data-updated="true">Mar 22<span>nd</span>, 2013</time>
+          
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/fish/'>fish</a>, <a class='category' href='/blog/categories/linux/'>linux</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        <p class="meta">
+          
+            <a class="basic-alignment left" href="/blog/2013/03/06/the-new-yorker-and-the-importance-of-optimization/" title="Previous Post: The New Yorker and the importance of optimization">&laquo; The New Yorker and the importance of optimization</a>
+          
+          
+        </p>
+      </footer>
     </article>
+    
+      <section class="comments">
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
     
   </div>
   
@@ -186,7 +255,10 @@
       var disqus_shortname = 'milkandtang';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://milkandtang.com/blog/2013/03/22/vim-fish-shell-and-sensible/';
+        var disqus_url = 'http://milkandtang.com/blog/2013/03/22/vim-fish-shell-and-sensible/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
