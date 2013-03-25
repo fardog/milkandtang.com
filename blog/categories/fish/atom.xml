@@ -4,7 +4,7 @@
   <title><![CDATA[Category: fish | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/fish/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-03-22T00:21:15-07:00</updated>
+  <updated>2013-03-24T23:41:04-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -26,7 +26,7 @@ E484: Can't open file /tmp/v1NmKg8/0
 Press ENTER or type command to continue
 </code></pre>
 
-<p>Frustratingly, line 75 held no obvious suggestions. After some frustrating time troubleshooting, I found it worked fine if I wasn't using <code>fish</code> shell.</p>
+<p>Frustratingly, line 75 held no obvious suggestions. After some time troubleshooting, I found it worked fine if I wasn't using <a href="http://www.ridiculousfish.com/shell/"><code>fish</code> shell</a>.</p>
 
 <p>I'm not positive why this is the case, but you can fix the error by adding the following line to your <code>.vimrc</code>.</p>
 
