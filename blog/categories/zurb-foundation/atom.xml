@@ -4,7 +4,7 @@
   <title><![CDATA[Category: zurb-foundation | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/zurb-foundation/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-03-24T23:41:04-07:00</updated>
+  <updated>2013-07-12T22:21:53-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -12,6 +12,19 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[keeping your countdowns in check]]></title>
+    <link href="http://milkandtang.com/blog/2013/07/12/keeping-your-countdowns-in-check/"/>
+    <updated>2013-07-12T22:09:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2013/07/12/keeping-your-countdowns-in-check</id>
+    <content type="html"><![CDATA[<p><a href="http://timer.fardogllc.com">Timer</a> is a simple, multiple countdown timer web application. The iPhone lacks multiple timers, and what I found on the app store was poor. What I found online, also poor (and way too full of ads), so I built one. It's pretty simple, and hopefully you'll find it useful.</p>
+
+<p>I've actually started some additional work on it—such as long-running timers that are remembered if you leave the site—but I'll probably come back to those some other day. Also this includes my newest pre-deployment processing scripts, which perform automatic minification and building from <a href="http://jinja.pocoo.org/">jinja</a> templates. They may be of interest to someone.</p>
+
+<p>Timer's source is <a href="http://github.com/fardog/timer/">available on my github</a>. I would love to see some patches or improvements! Or, just enjoy as-is.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Is this Daylight Saving Time?]]></title>

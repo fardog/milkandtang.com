@@ -11,10 +11,10 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Using Caps-Lock as a Compose key in XFCE4 - milkandtang</title>
+  <title>keeping your countdowns in check - milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="Why not take that useless key, and make it useful? The Compose Key—formerly present on many Unix keyboards of old—isn&#8217;t present on most modern &hellip;">
+  <meta name="description" content="Timer is a simple, multiple countdown timer web application. The iPhone lacks multiple timers, and what I found on the app store was poor. What I &hellip;">
   
 
 
@@ -24,7 +24,7 @@
 
 
   
-  <link rel="canonical" href="http://milkandtang.com/blog/2013/02/22/using-caps-lock-as-a-compose-key-in-xfce4/">
+  <link rel="canonical" href="http://milkandtang.com/blog/2013/07/12/keeping-your-countdowns-in-check/">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/>
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/>
@@ -76,7 +76,7 @@
       
   <header>
     
-      <h1 class="entry-title">Using Caps-Lock as a Compose Key in XFCE4</h1>
+      <h1 class="entry-title">Keeping Your Countdowns in Check</h1>
     
     
       <p class="meta">
@@ -92,7 +92,7 @@
   
 
 
-<time datetime="2013-02-22T14:03:00-08:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2013</time>
+<time datetime="2013-07-12T22:09:00-07:00" pubdate data-updated="true">Jul 12<span>th</span>, 2013</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -101,15 +101,11 @@
   </header>
 
 
-<div class="entry-content"><p>Why not take that useless key, and make it useful? The <a href="http://en.wikipedia.org/wiki/Compose_key">Compose Key</a>—formerly present on many <a href="https://www.google.com/search?q=sun+keyboard&amp;hl=en&amp;tbm=isch&amp;tbo=u">Unix keyboards</a> of old—isn&#8217;t present on most modern laptops.</p>
+<div class="entry-content"><p><a href="http://timer.fardogllc.com">Timer</a> is a simple, multiple countdown timer web application. The iPhone lacks multiple timers, and what I found on the app store was poor. What I found online, also poor (and way too full of ads), so I built one. It&#8217;s pretty simple, and hopefully you&#8217;ll find it useful.</p>
 
-<p>In <a href="http://www.xfce.org/">XFCE</a>, this is a little more cumbersome than Gnome, since there isn&#8217;t a graphical interface for <code>setxkbmap</code>, but these two commands will swap the Caps lock for a compose key:</p>
+<p>I&#8217;ve actually started some additional work on it—such as long-running timers that are remembered if you leave the site—but I&#8217;ll probably come back to those some other day. Also this includes my newest pre-deployment processing scripts, which perform automatic minification and building from <a href="http://jinja.pocoo.org/">jinja</a> templates. They may be of interest to someone.</p>
 
-<pre><code>setxkbmap -option ctrl:nocaps  # disables caps lock
-setxkbmap -option compose:caps  # sets caps key to compose
-</code></pre>
-
-<p>To make this active at login, you can add two entries to your &#8220;Session and Startup&#8221; -> &#8220;Application Autostart&#8221; available under the <strong>Settings Manager</strong>. I&#8217;ve named mine &#8220;compose1&#8221; and &#8220;compose2&#8221;, each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you&#8217;ll surely be typing.</p>
+<p>Timer&#8217;s source is <a href="http://github.com/fardog/timer/">available on my github</a>. I would love to see some patches or improvements! Or, just enjoy as-is.</p>
 </div>
 
 
@@ -132,12 +128,12 @@ setxkbmap -option compose:caps  # sets caps key to compose
   
 
 
-<time datetime="2013-02-22T14:03:00-08:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2013</time>
+<time datetime="2013-07-12T22:09:00-07:00" pubdate data-updated="true">Jul 12<span>th</span>, 2013</time>
           
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/xfce/'>xfce</a>
+    <a class='category' href='/blog/categories/javascript/'>Javascript</a>, <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/projects/'>projects</a>, <a class='category' href='/blog/categories/zurb-foundation/'>zurb-foundation</a>
   
 </span>
 
@@ -153,10 +149,8 @@ setxkbmap -option compose:caps  # sets caps key to compose
         
         <p class="meta">
           
-            <a class="basic-alignment left" href="/blog/2013/02/16/making-noise-in-python/" title="Previous Post: Making noise in Python">&laquo; Making noise in Python</a>
+            <a class="basic-alignment left" href="/blog/2013/03/22/vim-fish-shell-and-sensible/" title="Previous Post: vim, fish shell, and vim-sensible">&laquo; vim, fish shell, and vim-sensible</a>
           
-          
-            <a class="basic-alignment right" href="/blog/2013/03/06/the-new-yorker-and-the-importance-of-optimization/" title="Next Post: The New Yorker and the importance of optimization">The New Yorker and the importance of optimization &raquo;</a>
           
         </p>
       </footer>
@@ -251,8 +245,8 @@ setxkbmap -option compose:caps  # sets caps key to compose
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://milkandtang.com/blog/2013/02/22/using-caps-lock-as-a-compose-key-in-xfce4/';
-        var disqus_url = 'http://milkandtang.com/blog/2013/02/22/using-caps-lock-as-a-compose-key-in-xfce4/';
+        var disqus_identifier = 'http://milkandtang.com/blog/2013/07/12/keeping-your-countdowns-in-check/';
+        var disqus_url = 'http://milkandtang.com/blog/2013/07/12/keeping-your-countdowns-in-check/';
         var disqus_script = 'embed.js';
       
     (function () {
