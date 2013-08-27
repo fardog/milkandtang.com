@@ -13,4 +13,4 @@ In [XFCE](http://www.xfce.org/), this is a little more cumbersome than Gnome, si
 	setxkbmap -option ctrl:nocaps  # disables caps lock
 	setxkbmap -option compose:caps  # sets caps key to compose
 
-To make this active at login, you can add two entries to your "Session and Startup" -> "Application Autostart" available under the **Settings Manager**. I've named mine "compose0" and "compose1", each containing one of the above commands. Now enjoy all those [en-dashes](http://en.wikipedia.org/wiki/Dash#En_dash) you'll surely be typing.
+To make this active at login, you can add two entries to your "Session and Startup" -> "Application Autostart" available under the **Settings Manager**. I've named mine "compose1" and "compose2", each containing one of the above commands. Now enjoy all those [en-dashes](http://en.wikipedia.org/wiki/Dash#En_dash) you'll surely be typing.

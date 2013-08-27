@@ -3,7 +3,7 @@ layout: post
 title: "Simple 'workon' Command for fish shell"
 date: 2013-02-15 00:15
 comments: true
-categories: [code, Python, virtualenv, virtualenvwrapper]
+categories: [code, fish, Python, virtualenv, virtualenvwrapper]
 ---
 
 I put together a quick `workon` clone for the [fish's fish shell](http://www.ridiculousfish.com/shell/). Definitely nothing as complete or useful as [virtualenvwrapper](http://www.doughellmann.com/projects/virtualenvwrapper/), but it fixes my need: switching simply between virtualenv's and projects.
