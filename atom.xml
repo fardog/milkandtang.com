@@ -4,7 +4,7 @@
   <title><![CDATA[milkandtang]]></title>
   <link href="http://milkandtang.com/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-07-12T22:21:53-07:00</updated>
+  <updated>2013-08-27T12:41:28-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -12,6 +12,67 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Getting WiFi on a Headless Raspberry Pi]]></title>
+    <link href="http://milkandtang.com/blog/2013/08/27/getting-wifi-on-a-headless-raspberry-pi/"/>
+    <updated>2013-08-27T11:38:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2013/08/27/getting-wifi-on-a-headless-raspberry-pi</id>
+    <content type="html"><![CDATA[<p>One of the final steps in a to-be-announced project involved getting a headless <a href="http://www.raspberrypi.org/">Raspberry Pi</a> up on WiFi at boot time—which turned out to be a little more challenging that first expected. Not because it was particularly difficult, but because the documentation was poor.</p>
+
+<p>Below are my full configuration files that were required. The WiFi USB dongle itself was an <a href="https://www.adafruit.com/products/1030">Adafruit USB WiFi with Antenna</a> which is actually a B-LINK BBL-LW05-AR5; notable becuase of its sizeable antenna, and for working with the latest Raspbian Wheezy distribution.</p>
+
+<p>Prior to getting started, make sure your Raspbian is up to date by issuing:</p>
+
+<pre><code>sudo apt-get update
+sudo apt-get upgrade
+</code></pre>
+
+<p>At that point, reboot and connect your WiFi module to USB. Then, edit your config. It&#8217;s worth noting that I have an interface <code>eth0</code> which is set to DHCP, and my <code>wlan0</code> interface which has a static IP. This allows me to use ethernet as a failsafe if something goes wrong.</p>
+
+<p>First, in the file <code>/etc/network/interfaces</code>:</p>
+
+<pre><code>auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+iface YOUR_WIFI_ID inet static
+address 192.168.1.5
+netmask 255.255.255.0
+gateway 192.168.1.1
+
+# iface default inet dhcp
+</code></pre>
+
+<p>This is setting up your ethernet to dhcp, your wifi to manual, sourcing the <code>wpa_supplicant.conf</code> file, and then assigning your named Wireless connection to a static IP. Note that <em>YOUR_WIFI_ID</em> above should be an identifier you make up yourself. For example, mine is <em>NORTH_WPA</em>.</p>
+
+<p>Now, configure the network information in <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>:</p>
+
+<pre><code>ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+# update_config=1
+network={
+    ssid="Your SSID Name"
+    proto=RSN
+    key_mgmt=WPA-PSK
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+    psk="Your WPA Password"
+    id_str="YOUR_WIFI_ID"
+}
+</code></pre>
+
+<p>Again, note that <em>YOUR_WIFI_ID</em> is present.</p>
+
+<p>At that point, reboot. Assuming you&#8217;ve got all your information correct (and that your key management and etc. match mine) you&#8217;ll be connected automatically at boot!</p>
+
+<p>Much of the information in this post was gleaned from <a href="http://pingbin.com/2012/12/setup-wifi-raspberry-pi/">this thread</a>. The original poster&#8217;s information didn&#8217;t work for me, but I was able to assemble a working config from various commenters&#8217; information.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[keeping your countdowns in check]]></title>

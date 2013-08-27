@@ -11,10 +11,10 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Category: optimization - milkandtang</title>
+  <title>Getting WiFi on a Headless Raspberry Pi - milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="Category: optimization">
+  <meta name="description" content="One of the final steps in a to-be-announced project involved getting a headless Raspberry Pi up on WiFi at boot time—which turned out to be a little &hellip;">
   
 
 
@@ -24,7 +24,7 @@
 
 
   
-  <link rel="canonical" href="http://milkandtang.com/blog/categories/optimization/">
+  <link rel="canonical" href="http://milkandtang.com/blog/2013/08/27/getting-wifi-on-a-headless-raspberry-pi/">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/>
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/>
@@ -72,36 +72,142 @@
     <div id="content">
       <div class="row">
   <div class="nine columns">
-    <article role="article">
+    <article class="hentry" role="article">
       
-      <header>
-        <h1 class="entry-title">Category: Optimization</h1>
+  <header>
+    
+      <h1 class="entry-title">Getting WiFi on a Headless Raspberry Pi</h1>
+    
+    
+      <p class="meta">
         
-      </header>
-      
-      <div id="blog-archives" class="category">
+
+
+
+
+
 
 
 
   
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/03/06/the-new-yorker-and-the-importance-of-optimization/">The New Yorker and the importance of optimization</a></h1>
-<time datetime="2013-03-06T22:43:00-08:00" pubdate><span class='month'>Mar</span> <span class='day'>06</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/optimization/'>optimization</a></span>
-</footer>
 
 
-</article>
+<time datetime="2013-08-27T11:38:00-07:00" pubdate data-updated="true">Aug 27<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
 
+
+<div class="entry-content"><p>One of the final steps in a to-be-announced project involved getting a headless <a href="http://www.raspberrypi.org/">Raspberry Pi</a> up on WiFi at boot time—which turned out to be a little more challenging that first expected. Not because it was particularly difficult, but because the documentation was poor.</p>
+
+<p>Below are my full configuration files that were required. The WiFi USB dongle itself was an <a href="https://www.adafruit.com/products/1030">Adafruit USB WiFi with Antenna</a> which is actually a B-LINK BBL-LW05-AR5; notable becuase of its sizeable antenna, and for working with the latest Raspbian Wheezy distribution.</p>
+
+<p>Prior to getting started, make sure your Raspbian is up to date by issuing:</p>
+
+<pre><code>sudo apt-get update
+sudo apt-get upgrade
+</code></pre>
+
+<p>At that point, reboot and connect your WiFi module to USB. Then, edit your config. It&#8217;s worth noting that I have an interface <code>eth0</code> which is set to DHCP, and my <code>wlan0</code> interface which has a static IP. This allows me to use ethernet as a failsafe if something goes wrong.</p>
+
+<p>First, in the file <code>/etc/network/interfaces</code>:</p>
+
+<pre><code>auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+iface YOUR_WIFI_ID inet static
+address 192.168.1.5
+netmask 255.255.255.0
+gateway 192.168.1.1
+
+# iface default inet dhcp
+</code></pre>
+
+<p>This is setting up your ethernet to dhcp, your wifi to manual, sourcing the <code>wpa_supplicant.conf</code> file, and then assigning your named Wireless connection to a static IP. Note that <em>YOUR_WIFI_ID</em> above should be an identifier you make up yourself. For example, mine is <em>NORTH_WPA</em>.</p>
+
+<p>Now, configure the network information in <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>:</p>
+
+<pre><code>ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+# update_config=1
+network={
+    ssid="Your SSID Name"
+    proto=RSN
+    key_mgmt=WPA-PSK
+    pairwise=CCMP TKIP
+    group=CCMP TKIP
+    psk="Your WPA Password"
+    id_str="YOUR_WIFI_ID"
+}
+</code></pre>
+
+<p>Again, note that <em>YOUR_WIFI_ID</em> is present.</p>
+
+<p>At that point, reboot. Assuming you&#8217;ve got all your information correct (and that your key management and etc. match mine) you&#8217;ll be connected automatically at boot!</p>
+
+<p>Much of the information in this post was gleaned from <a href="http://pingbin.com/2012/12/setup-wifi-raspberry-pi/">this thread</a>. The original poster&#8217;s information didn&#8217;t work for me, but I was able to assemble a working config from various commenters&#8217; information.</p>
 </div>
 
-      
+
+      <footer>
+        <p class="meta">
+          
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Nathan Wittstock</span></span>
+
+          
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-08-27T11:38:00-07:00" pubdate data-updated="true">Aug 27<span>th</span>, 2013</time>
+          
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/raspberry-pi/'>raspberry pi</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        <p class="meta">
+          
+            <a class="basic-alignment left" href="/blog/2013/07/12/keeping-your-countdowns-in-check/" title="Previous Post: keeping your countdowns in check">&laquo; keeping your countdowns in check</a>
+          
+          
+        </p>
+      </footer>
     </article>
+    
+      <section class="comments">
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
     
   </div>
   
@@ -186,7 +292,10 @@
       var disqus_shortname = 'milkandtang';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://milkandtang.com/blog/2013/08/27/getting-wifi-on-a-headless-raspberry-pi/';
+        var disqus_url = 'http://milkandtang.com/blog/2013/08/27/getting-wifi-on-a-headless-raspberry-pi/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

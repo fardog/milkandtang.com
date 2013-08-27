@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: linux | milkandtang]]></title>
-  <link href="http://milkandtang.com/blog/categories/linux/atom.xml" rel="self"/>
+  <title><![CDATA[Category: raspberry pi | milkandtang]]></title>
+  <link href="http://milkandtang.com/blog/categories/raspberry-pi/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
   <updated>2013-08-27T12:41:28-07:00</updated>
   <id>http://milkandtang.com/</id>
@@ -71,47 +71,6 @@ network={
 <p>At that point, reboot. Assuming you've got all your information correct (and that your key management and etc. match mine) you'll be connected automatically at boot!</p>
 
 <p>Much of the information in this post was gleaned from <a href="http://pingbin.com/2012/12/setup-wifi-raspberry-pi/">this thread</a>. The original poster's information didn't work for me, but I was able to assemble a working config from various commenters' information.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[vim, fish shell, and vim-sensible]]></title>
-    <link href="http://milkandtang.com/blog/2013/03/22/vim-fish-shell-and-sensible/"/>
-    <updated>2013-03-22T00:07:00-07:00</updated>
-    <id>http://milkandtang.com/blog/2013/03/22/vim-fish-shell-and-sensible</id>
-    <content type="html"><![CDATA[<p>Part of this evening was spent making <code>vim</code> workable for me, the first step was getting some sane defaults. <a href="https://github.com/tpope/vim-sensible">vim-sensible</a> was recommended in several places (as was Tim Pope's also excellent <a href="https://github.com/tpope/vim-pathogen">pathogen</a>), but immediately after installation I was getting an error:</p>
-
-<pre><code>Error detected while processing ~/.vim/bundle/vim-sensible/plugin/sensible.vim:
-line   75:
-E484: Can't open file /tmp/v1NmKg8/0
-Press ENTER or type command to continue
-</code></pre>
-
-<p>Frustratingly, line 75 held no obvious suggestions. After some time troubleshooting, I found it worked fine if I wasn't using <a href="http://www.ridiculousfish.com/shell/"><code>fish</code> shell</a>.</p>
-
-<p>I'm not positive why this is the case, but you can fix the error by adding the following line to your <code>.vimrc</code>.</p>
-
-<pre><code>set shell=/bin/sh
-</code></pre>
-
-<p>On next launch of <code>vim</code>, all is resolved.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Using Caps-Lock as a Compose key in XFCE4]]></title>
-    <link href="http://milkandtang.com/blog/2013/02/22/using-caps-lock-as-a-compose-key-in-xfce4/"/>
-    <updated>2013-02-22T14:03:00-08:00</updated>
-    <id>http://milkandtang.com/blog/2013/02/22/using-caps-lock-as-a-compose-key-in-xfce4</id>
-    <content type="html"><![CDATA[<p>Why not take that useless key, and make it useful? The <a href="http://en.wikipedia.org/wiki/Compose_key">Compose Key</a>—formerly present on many <a href="https://www.google.com/search?q=sun+keyboard&amp;hl=en&amp;tbm=isch&amp;tbo=u">Unix keyboards</a> of old—isn't present on most modern laptops.</p>
-
-<p>In <a href="http://www.xfce.org/">XFCE</a>, this is a little more cumbersome than Gnome, since there isn't a graphical interface for <code>setxkbmap</code>, but these two commands will swap the Caps lock for a compose key:</p>
-
-<pre><code>setxkbmap -option ctrl:nocaps  # disables caps lock
-setxkbmap -option compose:caps  # sets caps key to compose
-</code></pre>
-
-<p>To make this active at login, you can add two entries to your "Session and Startup" -> "Application Autostart" available under the <strong>Settings Manager</strong>. I've named mine "compose1" and "compose2", each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you'll surely be typing.</p>
 ]]></content>
   </entry>
   
