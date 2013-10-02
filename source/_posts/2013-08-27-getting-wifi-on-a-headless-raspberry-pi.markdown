@@ -12,44 +12,50 @@ Below are my full configuration files that were required. The WiFi USB dongle it
 
 Prior to getting started, make sure your Raspbian is up to date by issuing:
 
-	sudo apt-get update
-	sudo apt-get upgrade
+```bash
+sudo apt-get update
+sudo apt-get upgrade
+```
 
 At that point, reboot and connect your WiFi module to USB. Then, edit your config. It's worth noting that I have an interface `eth0` which is set to DHCP, and my `wlan0` interface which has a static IP. This allows me to use ethernet as a failsafe if something goes wrong.
 
 First, in the file `/etc/network/interfaces`:
 
-	auto lo
+```
+auto lo
 
-	iface lo inet loopback
-	iface eth0 inet dhcp
+iface lo inet loopback
+iface eth0 inet dhcp
 
-	allow-hotplug wlan0
-	iface wlan0 inet manual
-	wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+allow-hotplug wlan0
+iface wlan0 inet manual
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
 
-	iface YOUR_WIFI_ID inet static
-	address 192.168.1.5
-	netmask 255.255.255.0
-	gateway 192.168.1.1
+iface YOUR_WIFI_ID inet static
+address 192.168.1.5
+netmask 255.255.255.0
+gateway 192.168.1.1
+```
 
-	# iface default inet dhcp
+# iface default inet dhcp
 
 This is setting up your ethernet to dhcp, your wifi to manual, sourcing the `wpa_supplicant.conf` file, and then assigning your named Wireless connection to a static IP. Note that *YOUR_WIFI_ID* above should be an identifier you make up yourself. For example, mine is *NORTH_WPA*.
 
 Now, configure the network information in `/etc/wpa_supplicant/wpa_supplicant.conf`:
 
-	ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-	# update_config=1
-	network={
-		ssid="Your SSID Name"
-		proto=RSN
-		key_mgmt=WPA-PSK
-		pairwise=CCMP TKIP
-		group=CCMP TKIP
-		psk="Your WPA Password"
-		id_str="YOUR_WIFI_ID"
-	}
+```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+# update_config=1
+network={
+	ssid="Your SSID Name"
+	proto=RSN
+	key_mgmt=WPA-PSK
+	pairwise=CCMP TKIP
+	group=CCMP TKIP
+	psk="Your WPA Password"
+	id_str="YOUR_WIFI_ID"
+}
+```
 
 Again, note that *YOUR_WIFI_ID* is present.
 
