@@ -107,50 +107,89 @@
 
 <p>First, create a function file <code>~/.config/fish/functions/workon.fish</code> with this defintion:</p>
 
-<pre><code>function workon -d "Activate virtual environment in $WORKON_HOME"
-  set tgt {$WORKON_HOME}/$argv[1]
-  if [ -d $tgt ]
-    cd $tgt
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function workon -d "Activate virtual environment in $WORKON_HOME"
+</span><span class='line'>  set tgt {$WORKON_HOME}/$argv[1]
+</span><span class='line'>  if [ -d $tgt ]
+</span><span class='line'>    cd $tgt
+</span><span class='line'>
+</span><span class='line'>    # deactivate any active venv, and activate the target
+</span><span class='line'>    # this needs to be rewritten with the `type` fish command
+</span><span class='line'>    if test -n "$VIRTUAL_ENV"
+</span><span class='line'>      deactivate
+</span><span class='line'>    end
+</span><span class='line'>
+</span><span class='line'>    . bin/activate.fish
+</span><span class='line'>
+</span><span class='line'>    if test (count $argv) -gt 1
+</span><span class='line'>      if test $argv[2] = "open"
+</span><span class='line'>        set -gx WORKON_OPEN_SUBLIME True
+</span><span class='line'>      end
+</span><span class='line'>    else
+</span><span class='line'>      set -ge WORKON_OPEN_SUBLIME
+</span><span class='line'>    end
+</span><span class='line'>
+</span><span class='line'>    # open sublime text
+</span><span class='line'>    if test -n "$WORKON_OPEN_SUBLIME"
+</span><span class='line'>      open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
+</span><span class='line'>    end
+</span><span class='line'>
+</span><span class='line'>    # change to working dir
+</span><span class='line'>    if test -n "$WORKON_SRC_DIR"
+</span><span class='line'>      cd {$WORKON_SRC_DIR}/{$argv[1]}
+</span><span class='line'>    end
+</span><span class='line'>  else
+</span><span class='line'>    echo "$tgt not found"
+</span><span class='line'>  end
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>complete -c workon -a "(cd $WORKON_HOME; ls -d *)"</span></code></pre></td></tr></table></div></figure>
 
-    # deactivate any active venv, and activate the target
-    # this needs to be rewritten with the `type` fish command
-    if test -n "$VIRTUAL_ENV"
-      deactivate
-    end
-
-    . bin/activate.fish
-
-    if test (count $argv) -gt 1
-      if test $argv[2] = "open"
-        set -gx WORKON_OPEN_SUBLIME True
-      end
-    else
-      set -ge WORKON_OPEN_SUBLIME
-    end
-
-    # open sublime text
-    if test -n "$WORKON_OPEN_SUBLIME"
-      open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
-    end
-
-    # change to working dir
-    if test -n "$WORKON_SRC_DIR"
-      cd {$WORKON_SRC_DIR}/{$argv[1]}
-    end
-  else
-    echo "$tgt not found"
-  end
-end
-
-complete -c workon -a "(cd $WORKON_HOME; ls -d *)"
-</code></pre>
 
 <p>Then, define the necessary environment variables in your <code>~/.config/fish/config.fish</code> file:</p>
 
-<pre><code>set -gx WORKON_HOME ~/Documents/virtual_environments
-set -gx WORKON_SRC_DIR ~/Documents/code
-set -gx WORKON_OPEN_SUBLIME True
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set -gx WORKON_HOME ~/Documents/virtual_environments
+</span><span class='line'>set -gx WORKON_SRC_DIR ~/Documents/code
+</span><span class='line'>set -gx WORKON_OPEN_SUBLIME True</span></code></pre></td></tr></table></div></figure>
+
 
 <p>As you might imagine, this is set up for how I work, but it wouldn&#8217;t be difficult to customize for your needs. Since this uses the virtualenv-provided <code>activate.fish</code> script, the <code>deactivate</code> command works as expected, as well as any other usual functions.</p>
 </div>
@@ -284,7 +323,7 @@ set -gx WORKON_OPEN_SUBLIME True
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 
-<script src="/assets/javascripts/highlight.pack.js"></script>
+<!-- <script src="/assets/javascripts/highlight.pack.js"></script> -->
 <script src="/assets/javascripts/app.min.20130217.js"></script>
 
 

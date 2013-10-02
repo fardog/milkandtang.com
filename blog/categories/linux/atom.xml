@@ -4,7 +4,7 @@
   <title><![CDATA[Category: linux | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/linux/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-08-27T12:41:28-07:00</updated>
+  <updated>2013-10-01T23:33:47-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -24,47 +24,55 @@
 
 <p>Prior to getting started, make sure your Raspbian is up to date by issuing:</p>
 
-<pre><code>sudo apt-get update
+<p><code>bash
+sudo apt-get update
 sudo apt-get upgrade
-</code></pre>
+</code></p>
 
 <p>At that point, reboot and connect your WiFi module to USB. Then, edit your config. It's worth noting that I have an interface <code>eth0</code> which is set to DHCP, and my <code>wlan0</code> interface which has a static IP. This allows me to use ethernet as a failsafe if something goes wrong.</p>
 
 <p>First, in the file <code>/etc/network/interfaces</code>:</p>
 
-<pre><code>auto lo
+<p>```
+auto lo</p>
 
-iface lo inet loopback
-iface eth0 inet dhcp
+<p>iface lo inet loopback
+iface eth0 inet dhcp</p>
 
-allow-hotplug wlan0
+<p>allow-hotplug wlan0
 iface wlan0 inet manual
-wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf</p>
 
-iface YOUR_WIFI_ID inet static
+<p>iface YOUR_WIFI_ID inet static
 address 192.168.1.5
 netmask 255.255.255.0
 gateway 192.168.1.1
+```</p>
 
-# iface default inet dhcp
-</code></pre>
+<h1>iface default inet dhcp</h1>
 
 <p>This is setting up your ethernet to dhcp, your wifi to manual, sourcing the <code>wpa_supplicant.conf</code> file, and then assigning your named Wireless connection to a static IP. Note that <em>YOUR_WIFI_ID</em> above should be an identifier you make up yourself. For example, mine is <em>NORTH_WPA</em>.</p>
 
 <p>Now, configure the network information in <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>:</p>
 
-<pre><code>ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-# update_config=1
-network={
-    ssid="Your SSID Name"
-    proto=RSN
-    key_mgmt=WPA-PSK
-    pairwise=CCMP TKIP
-    group=CCMP TKIP
-    psk="Your WPA Password"
-    id_str="YOUR_WIFI_ID"
-}
+<p>```
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</p>
+
+<h1>update_config=1</h1>
+
+<p>network={</p>
+
+<pre><code>ssid="Your SSID Name"
+proto=RSN
+key_mgmt=WPA-PSK
+pairwise=CCMP TKIP
+group=CCMP TKIP
+psk="Your WPA Password"
+id_str="YOUR_WIFI_ID"
 </code></pre>
+
+<p>}
+```</p>
 
 <p>Again, note that <em>YOUR_WIFI_ID</em> is present.</p>
 
@@ -81,18 +89,20 @@ network={
     <id>http://milkandtang.com/blog/2013/03/22/vim-fish-shell-and-sensible</id>
     <content type="html"><![CDATA[<p>Part of this evening was spent making <code>vim</code> workable for me, the first step was getting some sane defaults. <a href="https://github.com/tpope/vim-sensible">vim-sensible</a> was recommended in several places (as was Tim Pope's also excellent <a href="https://github.com/tpope/vim-pathogen">pathogen</a>), but immediately after installation I was getting an error:</p>
 
-<pre><code>Error detected while processing ~/.vim/bundle/vim-sensible/plugin/sensible.vim:
+<p><code>
+Error detected while processing ~/.vim/bundle/vim-sensible/plugin/sensible.vim:
 line   75:
 E484: Can't open file /tmp/v1NmKg8/0
 Press ENTER or type command to continue
-</code></pre>
+</code></p>
 
 <p>Frustratingly, line 75 held no obvious suggestions. After some time troubleshooting, I found it worked fine if I wasn't using <a href="http://www.ridiculousfish.com/shell/"><code>fish</code> shell</a>.</p>
 
 <p>I'm not positive why this is the case, but you can fix the error by adding the following line to your <code>.vimrc</code>.</p>
 
-<pre><code>set shell=/bin/sh
-</code></pre>
+<p><code>
+set shell=/bin/sh
+</code></p>
 
 <p>On next launch of <code>vim</code>, all is resolved.</p>
 ]]></content>
@@ -107,9 +117,10 @@ Press ENTER or type command to continue
 
 <p>In <a href="http://www.xfce.org/">XFCE</a>, this is a little more cumbersome than Gnome, since there isn't a graphical interface for <code>setxkbmap</code>, but these two commands will swap the Caps lock for a compose key:</p>
 
-<pre><code>setxkbmap -option ctrl:nocaps  # disables caps lock
+<p><code>bash
+setxkbmap -option ctrl:nocaps  # disables caps lock
 setxkbmap -option compose:caps  # sets caps key to compose
-</code></pre>
+</code></p>
 
 <p>To make this active at login, you can add two entries to your "Session and Startup" -> "Application Autostart" available under the <strong>Settings Manager</strong>. I've named mine "compose1" and "compose2", each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you'll surely be typing.</p>
 ]]></content>

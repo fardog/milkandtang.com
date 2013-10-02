@@ -107,47 +107,76 @@
 
 <p>Prior to getting started, make sure your Raspbian is up to date by issuing:</p>
 
-<pre><code>sudo apt-get update
-sudo apt-get upgrade
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get upgrade
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>At that point, reboot and connect your WiFi module to USB. Then, edit your config. It&#8217;s worth noting that I have an interface <code>eth0</code> which is set to DHCP, and my <code>wlan0</code> interface which has a static IP. This allows me to use ethernet as a failsafe if something goes wrong.</p>
 
 <p>First, in the file <code>/etc/network/interfaces</code>:</p>
 
-<pre><code>auto lo
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>auto lo
+</span><span class='line'>
+</span><span class='line'>iface lo inet loopback
+</span><span class='line'>iface eth0 inet dhcp
+</span><span class='line'>
+</span><span class='line'>allow-hotplug wlan0
+</span><span class='line'>iface wlan0 inet manual
+</span><span class='line'>wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+</span><span class='line'>
+</span><span class='line'>iface YOUR_WIFI_ID inet static
+</span><span class='line'>address 192.168.1.5
+</span><span class='line'>netmask 255.255.255.0
+</span><span class='line'>gateway 192.168.1.1
+</span></code></pre></td></tr></table></div></figure>
 
-iface lo inet loopback
-iface eth0 inet dhcp
 
-allow-hotplug wlan0
-iface wlan0 inet manual
-wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
-
-iface YOUR_WIFI_ID inet static
-address 192.168.1.5
-netmask 255.255.255.0
-gateway 192.168.1.1
-
-# iface default inet dhcp
-</code></pre>
+<h1>iface default inet dhcp</h1>
 
 <p>This is setting up your ethernet to dhcp, your wifi to manual, sourcing the <code>wpa_supplicant.conf</code> file, and then assigning your named Wireless connection to a static IP. Note that <em>YOUR_WIFI_ID</em> above should be an identifier you make up yourself. For example, mine is <em>NORTH_WPA</em>.</p>
 
 <p>Now, configure the network information in <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>:</p>
 
-<pre><code>ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-# update_config=1
-network={
-    ssid="Your SSID Name"
-    proto=RSN
-    key_mgmt=WPA-PSK
-    pairwise=CCMP TKIP
-    group=CCMP TKIP
-    psk="Your WPA Password"
-    id_str="YOUR_WIFI_ID"
-}
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">ctrl_interface</span><span class="o">=</span><span class="nv">DIR</span><span class="o">=</span>/var/run/wpa_supplicant <span class="nv">GROUP</span><span class="o">=</span>netdev
+</span><span class='line'><span class="c"># update_config=1</span>
+</span><span class='line'><span class="nv">network</span><span class="o">={</span>
+</span><span class='line'>  <span class="nv">ssid</span><span class="o">=</span><span class="s2">&quot;Your SSID Name&quot;</span>
+</span><span class='line'>  <span class="nv">proto</span><span class="o">=</span>RSN
+</span><span class='line'>  <span class="nv">key_mgmt</span><span class="o">=</span>WPA-PSK
+</span><span class='line'>  <span class="nv">pairwise</span><span class="o">=</span>CCMP TKIP
+</span><span class='line'>  <span class="nv">group</span><span class="o">=</span>CCMP TKIP
+</span><span class='line'>  <span class="nv">psk</span><span class="o">=</span><span class="s2">&quot;Your WPA Password&quot;</span>
+</span><span class='line'>  <span class="nv">id_str</span><span class="o">=</span><span class="s2">&quot;YOUR_WIFI_ID&quot;</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Again, note that <em>YOUR_WIFI_ID</em> is present.</p>
 
@@ -283,7 +312,7 @@ network={
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 
-<script src="/assets/javascripts/highlight.pack.js"></script>
+<!-- <script src="/assets/javascripts/highlight.pack.js"></script> -->
 <script src="/assets/javascripts/app.min.20130217.js"></script>
 
 

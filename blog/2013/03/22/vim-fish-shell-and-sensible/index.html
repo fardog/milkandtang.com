@@ -103,18 +103,23 @@
 
 <div class="entry-content"><p>Part of this evening was spent making <code>vim</code> workable for me, the first step was getting some sane defaults. <a href="https://github.com/tpope/vim-sensible">vim-sensible</a> was recommended in several places (as was Tim Pope&#8217;s also excellent <a href="https://github.com/tpope/vim-pathogen">pathogen</a>), but immediately after installation I was getting an error:</p>
 
-<pre><code>Error detected while processing ~/.vim/bundle/vim-sensible/plugin/sensible.vim:
-line   75:
-E484: Can't open file /tmp/v1NmKg8/0
-Press ENTER or type command to continue
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Error detected while processing ~/.vim/bundle/vim-sensible/plugin/sensible.vim:
+</span><span class='line'>line   75:
+</span><span class='line'>E484: Can't open file /tmp/v1NmKg8/0
+</span><span class='line'>Press ENTER or type command to continue</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Frustratingly, line 75 held no obvious suggestions. After some time troubleshooting, I found it worked fine if I wasn&#8217;t using <a href="http://www.ridiculousfish.com/shell/"><code>fish</code> shell</a>.</p>
 
 <p>I&#8217;m not positive why this is the case, but you can fix the error by adding the following line to your <code>.vimrc</code>.</p>
 
-<pre><code>set shell=/bin/sh
-</code></pre>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set shell=/bin/sh</span></code></pre></td></tr></table></div></figure>
+
 
 <p>On next launch of <code>vim</code>, all is resolved.</p>
 </div>
@@ -248,7 +253,7 @@ Press ENTER or type command to continue
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 
-<script src="/assets/javascripts/highlight.pack.js"></script>
+<!-- <script src="/assets/javascripts/highlight.pack.js"></script> -->
 <script src="/assets/javascripts/app.min.20130217.js"></script>
 
 

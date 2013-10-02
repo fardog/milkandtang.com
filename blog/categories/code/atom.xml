@@ -4,7 +4,7 @@
   <title><![CDATA[Category: code | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-08-27T12:41:28-07:00</updated>
+  <updated>2013-10-01T23:33:47-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -70,36 +70,41 @@
     <id>http://milkandtang.com/blog/2013/02/16/making-noise-in-python</id>
     <content type="html"><![CDATA[<p>I've been working with <a href="https://github.com/bastibe/PyAudio">PyAudio</a> lately, on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:</p>
 
-<pre><code>import math
+<p>```python
+import math
 import numpy
-import pyaudio
+import pyaudio</p>
 
+<p>def sine(frequency, length, rate):</p>
 
-def sine(frequency, length, rate):
-    length = int(length * rate)
-    factor = float(frequency) * (math.pi * 2) / rate
-    return numpy.sin(numpy.arange(length) * factor)
-
-
-def play_tone(stream, frequency=440, length=1, rate=44100):
-    chunks = []
-    chunks.append(sine(frequency, length, rate))
-
-    chunk = numpy.concatenate(chunks) * 0.25
-
-    stream.write(chunk.astype(numpy.float32).tostring())
-
-
-if __name__ == '__main__':
-    p = pyaudio.PyAudio()
-    stream = p.open(format=pyaudio.paFloat32,
-                    channels=1, rate=44100, output=1)
-
-    play_tone(stream)
-
-    stream.close()
-    p.terminate()
+<pre><code>length = int(length * rate)
+factor = float(frequency) * (math.pi * 2) / rate
+return numpy.sin(numpy.arange(length) * factor)
 </code></pre>
+
+<p>def play_tone(stream, frequency=440, length=1, rate=44100):</p>
+
+<pre><code>chunks = []
+chunks.append(sine(frequency, length, rate))
+
+chunk = numpy.concatenate(chunks) * 0.25
+
+stream.write(chunk.astype(numpy.float32).tostring())
+</code></pre>
+
+<p>if <strong>name</strong> == '<strong>main</strong>':</p>
+
+<pre><code>p = pyaudio.PyAudio()
+stream = p.open(format=pyaudio.paFloat32,
+                channels=1, rate=44100, output=1)
+
+play_tone(stream)
+
+stream.close()
+p.terminate()
+</code></pre>
+
+<p>```</p>
 
 <p>This simply generates a sine wave of a specified frequency and length, and writes it out to an already open PyAudio stream. A pleasant tone is produced. It's not too fancy, but it beats loading a wave file from disk.</p>
 ]]></content>
@@ -116,50 +121,58 @@ if __name__ == '__main__':
 
 <p>First, create a function file <code>~/.config/fish/functions/workon.fish</code> with this defintion:</p>
 
-<pre><code>function workon -d "Activate virtual environment in $WORKON_HOME"
+<p>```
+function workon -d "Activate virtual environment in $WORKON_HOME"
   set tgt {$WORKON_HOME}/$argv[1]
-  if [ -d $tgt ]
-    cd $tgt
+  if [ -d $tgt ]</p>
 
-    # deactivate any active venv, and activate the target
-    # this needs to be rewritten with the `type` fish command
-    if test -n "$VIRTUAL_ENV"
-      deactivate
-    end
+<pre><code>cd $tgt
 
-    . bin/activate.fish
-
-    if test (count $argv) -gt 1
-      if test $argv[2] = "open"
-        set -gx WORKON_OPEN_SUBLIME True
-      end
-    else
-      set -ge WORKON_OPEN_SUBLIME
-    end
-
-    # open sublime text
-    if test -n "$WORKON_OPEN_SUBLIME"
-      open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
-    end
-
-    # change to working dir
-    if test -n "$WORKON_SRC_DIR"
-      cd {$WORKON_SRC_DIR}/{$argv[1]}
-    end
-  else
-    echo "$tgt not found"
-  end
+# deactivate any active venv, and activate the target
+# this needs to be rewritten with the `type` fish command
+if test -n "$VIRTUAL_ENV"
+  deactivate
 end
 
-complete -c workon -a "(cd $WORKON_HOME; ls -d *)"
+. bin/activate.fish
+
+if test (count $argv) -gt 1
+  if test $argv[2] = "open"
+    set -gx WORKON_OPEN_SUBLIME True
+  end
+else
+  set -ge WORKON_OPEN_SUBLIME
+end
+
+# open sublime text
+if test -n "$WORKON_OPEN_SUBLIME"
+  open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
+end
+
+# change to working dir
+if test -n "$WORKON_SRC_DIR"
+  cd {$WORKON_SRC_DIR}/{$argv[1]}
+end
 </code></pre>
+
+<p>  else</p>
+
+<pre><code>echo "$tgt not found"
+</code></pre>
+
+<p>  end
+end</p>
+
+<p>complete -c workon -a "(cd $WORKON_HOME; ls -d *)"
+```</p>
 
 <p>Then, define the necessary environment variables in your <code>~/.config/fish/config.fish</code> file:</p>
 
-<pre><code>set -gx WORKON_HOME ~/Documents/virtual_environments
+<p><code>
+set -gx WORKON_HOME ~/Documents/virtual_environments
 set -gx WORKON_SRC_DIR ~/Documents/code
 set -gx WORKON_OPEN_SUBLIME True
-</code></pre>
+</code></p>
 
 <p>As you might imagine, this is set up for how I work, but it wouldn't be difficult to customize for your needs. Since this uses the virtualenv-provided <code>activate.fish</code> script, the <code>deactivate</code> command works as expected, as well as any other usual functions.</p>
 ]]></content>

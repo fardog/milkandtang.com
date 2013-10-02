@@ -4,7 +4,7 @@
   <title><![CDATA[Category: PyAudio | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/pyaudio/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-08-27T12:41:28-07:00</updated>
+  <updated>2013-10-01T23:33:47-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -20,36 +20,41 @@
     <id>http://milkandtang.com/blog/2013/02/16/making-noise-in-python</id>
     <content type="html"><![CDATA[<p>I've been working with <a href="https://github.com/bastibe/PyAudio">PyAudio</a> lately, on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:</p>
 
-<pre><code>import math
+<p>```python
+import math
 import numpy
-import pyaudio
+import pyaudio</p>
 
+<p>def sine(frequency, length, rate):</p>
 
-def sine(frequency, length, rate):
-    length = int(length * rate)
-    factor = float(frequency) * (math.pi * 2) / rate
-    return numpy.sin(numpy.arange(length) * factor)
-
-
-def play_tone(stream, frequency=440, length=1, rate=44100):
-    chunks = []
-    chunks.append(sine(frequency, length, rate))
-
-    chunk = numpy.concatenate(chunks) * 0.25
-
-    stream.write(chunk.astype(numpy.float32).tostring())
-
-
-if __name__ == '__main__':
-    p = pyaudio.PyAudio()
-    stream = p.open(format=pyaudio.paFloat32,
-                    channels=1, rate=44100, output=1)
-
-    play_tone(stream)
-
-    stream.close()
-    p.terminate()
+<pre><code>length = int(length * rate)
+factor = float(frequency) * (math.pi * 2) / rate
+return numpy.sin(numpy.arange(length) * factor)
 </code></pre>
+
+<p>def play_tone(stream, frequency=440, length=1, rate=44100):</p>
+
+<pre><code>chunks = []
+chunks.append(sine(frequency, length, rate))
+
+chunk = numpy.concatenate(chunks) * 0.25
+
+stream.write(chunk.astype(numpy.float32).tostring())
+</code></pre>
+
+<p>if <strong>name</strong> == '<strong>main</strong>':</p>
+
+<pre><code>p = pyaudio.PyAudio()
+stream = p.open(format=pyaudio.paFloat32,
+                channels=1, rate=44100, output=1)
+
+play_tone(stream)
+
+stream.close()
+p.terminate()
+</code></pre>
+
+<p>```</p>
 
 <p>This simply generates a sine wave of a specified frequency and length, and writes it out to an already open PyAudio stream. A pleasant tone is produced. It's not too fancy, but it beats loading a wave file from disk.</p>
 ]]></content>

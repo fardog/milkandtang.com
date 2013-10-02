@@ -105,9 +105,12 @@
 
 <p>In <a href="http://www.xfce.org/">XFCE</a>, this is a little more cumbersome than Gnome, since there isn&#8217;t a graphical interface for <code>setxkbmap</code>, but these two commands will swap the Caps lock for a compose key:</p>
 
-<pre><code>setxkbmap -option ctrl:nocaps  # disables caps lock
-setxkbmap -option compose:caps  # sets caps key to compose
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>setxkbmap -option ctrl:nocaps  <span class="c"># disables caps lock</span>
+</span><span class='line'>setxkbmap -option compose:caps  <span class="c"># sets caps key to compose</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>To make this active at login, you can add two entries to your &#8220;Session and Startup&#8221; -> &#8220;Application Autostart&#8221; available under the <strong>Settings Manager</strong>. I&#8217;ve named mine &#8220;compose1&#8221; and &#8220;compose2&#8221;, each containing one of the above commands. Now enjoy all those <a href="http://en.wikipedia.org/wiki/Dash#En_dash">en-dashes</a> you&#8217;ll surely be typing.</p>
 </div>
@@ -241,7 +244,7 @@ setxkbmap -option compose:caps  # sets caps key to compose
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 
-<script src="/assets/javascripts/highlight.pack.js"></script>
+<!-- <script src="/assets/javascripts/highlight.pack.js"></script> -->
 <script src="/assets/javascripts/app.min.20130217.js"></script>
 
 
