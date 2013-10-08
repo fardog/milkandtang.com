@@ -4,7 +4,7 @@
   <title><![CDATA[Category: raspberry pi | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/raspberry-pi/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-10-01T23:33:47-07:00</updated>
+  <updated>2013-10-07T20:38:57-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -46,10 +46,11 @@ wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf</p>
 <p>iface YOUR_WIFI_ID inet static
 address 192.168.1.5
 netmask 255.255.255.0
-gateway 192.168.1.1
-```</p>
+gateway 192.168.1.1</p>
 
 <h1>iface default inet dhcp</h1>
+
+<p>```</p>
 
 <p>This is setting up your ethernet to dhcp, your wifi to manual, sourcing the <code>wpa_supplicant.conf</code> file, and then assigning your named Wireless connection to a static IP. Note that <em>YOUR_WIFI_ID</em> above should be an identifier you make up yourself. For example, mine is <em>NORTH_WPA</em>.</p>
 

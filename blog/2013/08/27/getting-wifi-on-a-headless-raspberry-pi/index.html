@@ -131,6 +131,8 @@
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'>auto lo
 </span><span class='line'>
 </span><span class='line'>iface lo inet loopback
@@ -144,10 +146,10 @@
 </span><span class='line'>address 192.168.1.5
 </span><span class='line'>netmask 255.255.255.0
 </span><span class='line'>gateway 192.168.1.1
+</span><span class='line'>
+</span><span class='line'><span class="c"># iface default inet dhcp</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-<h1>iface default inet dhcp</h1>
 
 <p>This is setting up your ethernet to dhcp, your wifi to manual, sourcing the <code>wpa_supplicant.conf</code> file, and then assigning your named Wireless connection to a static IP. Note that <em>YOUR_WIFI_ID</em> above should be an identifier you make up yourself. For example, mine is <em>NORTH_WPA</em>.</p>
 
