@@ -4,7 +4,7 @@
   <title><![CDATA[Category: projects | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2013-10-08T11:01:24-07:00</updated>
+  <updated>2013-10-16T16:29:03-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -12,6 +12,32 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[primes, A Twitter-backed prime number generator]]></title>
+    <link href="http://milkandtang.com/blog/2013/10/15/primes-twitter-account/"/>
+    <updated>2013-10-15T15:44:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2013/10/15/primes-twitter-account</id>
+    <content type="html"><![CDATA[<p><a href="https://twitter.com/_primes_"><img src="/media/2013-10-16_primes.png" alt="_primes_ Twitter avatar" /></a></p>
+
+<p>A few weeks ago I started <a href="https://twitter.com/_primes_"><em>primes</em></a>, a Twitter-backed <a href="http://en.wikipedia.org/wiki/Prime_number">prime number</a> generator. When I say "Twitter-backed", I mean the bot that updates the account has very little idea of state: it only knows the last number it calculated because Twitter provides it. The program flow is this:</p>
+
+<ol>
+<li>Start up</li>
+<li>Fetch the most recently calculated prime from the Twitter feed.</li>
+<li>Calculate the next prime.</li>
+<li>Post if an hour has passed since the last posting. Wait if not, then post.</li>
+<li>Steps 2–4 forever.</li>
+</ol>
+
+
+<p>Technically steps two and four are merged after the first posting, since Twitter returns your latest tweet as a response when you post it. You can <a href="http://github.com/fardog/_primes_">view the code</a> on Github. It's written in CoffeeScript on Node.js, and uses <a href="https://github.com/laverdet/node-fibers">node-fibers</a> since I orginally built the prime number algorithm as a <a href="http://en.wikipedia.org/wiki/Generator_(computer_programming)">generator</a>, but it's unnecessary in this case.</p>
+
+<p>The only state the application maintains is an internal "last posting" date, just as a fail-safe if the server it runs on spontaneously changed time: I didn't want it accidentally posting too quickly.</p>
+
+<p>You should give it a follow if you love primes! Or maybe <a href="http://github.com/fardog/_primes_">fork the code</a> and make some new Twitter bots? I'd love to see some.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[keeping your countdowns in check]]></title>

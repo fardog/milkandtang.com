@@ -11,10 +11,10 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Category: xfce - milkandtang</title>
+  <title>primes, A Twitter-backed prime number generator - milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="Category: xfce">
+  <meta name="description" content="A few weeks ago I started primes, a Twitter-backed prime number generator. When I say &#8220;Twitter-backed&#8221;, I mean the bot that updates the &hellip;">
   
 
 
@@ -24,7 +24,7 @@
 
 
   
-  <link rel="canonical" href="http://milkandtang.com/blog/categories/xfce/">
+  <link rel="canonical" href="http://milkandtang.com/blog/2013/10/15/primes-twitter-account/">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/>
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/>
@@ -72,36 +72,107 @@
     <div id="content">
       <div class="row">
   <div class="nine columns">
-    <article role="article">
+    <article class="hentry" role="article">
       
-      <header>
-        <h1 class="entry-title">Category: Xfce</h1>
+  <header>
+    
+      <h1 class="entry-title">Primes, a Twitter-backed Prime Number Generator</h1>
+    
+    
+      <p class="meta">
         
-      </header>
-      
-      <div id="blog-archives" class="category">
+
+
+
+
+
 
 
 
   
-  <h2>2013</h2>
-
-<article>
-  
-<h1><a href="/blog/2013/02/22/using-caps-lock-as-a-compose-key-in-xfce4/">Using Caps-Lock as a Compose key in XFCE4</a></h1>
-<time datetime="2013-02-22T14:03:00-08:00" pubdate><span class='month'>Feb</span> <span class='day'>22</span> <span class='year'>2013</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/linux/'>linux</a>, <a class='category' href='/blog/categories/xfce/'>xfce</a></span>
-</footer>
 
 
-</article>
+<time datetime="2013-10-15T15:44:00-07:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
 
+
+<div class="entry-content"><p><a href="https://twitter.com/_primes_"><img src="/media/2013-10-16_primes.png" alt="_primes_ Twitter avatar" /></a></p>
+
+<p>A few weeks ago I started <a href="https://twitter.com/_primes_"><em>primes</em></a>, a Twitter-backed <a href="http://en.wikipedia.org/wiki/Prime_number">prime number</a> generator. When I say &#8220;Twitter-backed&#8221;, I mean the bot that updates the account has very little idea of state: it only knows the last number it calculated because Twitter provides it. The program flow is this:</p>
+
+<ol>
+<li>Start up</li>
+<li>Fetch the most recently calculated prime from the Twitter feed.</li>
+<li>Calculate the next prime.</li>
+<li>Post if an hour has passed since the last posting. Wait if not, then post.</li>
+<li>Steps 2–4 forever.</li>
+</ol>
+
+
+<p>Technically steps two and four are merged after the first posting, since Twitter returns your latest tweet as a response when you post it. You can <a href="http://github.com/fardog/_primes_">view the code</a> on Github. It&#8217;s written in CoffeeScript on Node.js, and uses <a href="https://github.com/laverdet/node-fibers">node-fibers</a> since I orginally built the prime number algorithm as a <a href="http://en.wikipedia.org/wiki/Generator_(computer_programming)">generator</a>, but it&#8217;s unnecessary in this case.</p>
+
+<p>The only state the application maintains is an internal &#8220;last posting&#8221; date, just as a fail-safe if the server it runs on spontaneously changed time: I didn&#8217;t want it accidentally posting too quickly.</p>
+
+<p>You should give it a follow if you love primes! Or maybe <a href="http://github.com/fardog/_primes_">fork the code</a> and make some new Twitter bots? I&#8217;d love to see some.</p>
 </div>
 
-      
+
+      <footer>
+        <p class="meta">
+          
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Nathan Wittstock</span></span>
+
+          
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-10-15T15:44:00-07:00" pubdate data-updated="true">Oct 15<span>th</span>, 2013</time>
+          
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/javascript/'>Javascript</a>, <a class='category' href='/blog/categories/node-js/'>Node.js</a>, <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  
+  
+</div>
+
+        
+        <p class="meta">
+          
+            <a class="basic-alignment left" href="/blog/2013/10/08/an-addendum-to-fixing-a-famicom-disk-system/" title="Previous Post: An Addendum to "Fixing a Famicom Disk System"">&laquo; An Addendum to "Fixing a Famicom Disk System"</a>
+          
+          
+        </p>
+      </footer>
     </article>
+    
+      <section class="comments">
+        <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+      </section>
     
   </div>
   
@@ -186,7 +257,10 @@
       var disqus_shortname = 'milkandtang';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://milkandtang.com/blog/2013/10/15/primes-twitter-account/';
+        var disqus_url = 'http://milkandtang.com/blog/2013/10/15/primes-twitter-account/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
