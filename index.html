@@ -14,7 +14,7 @@
   <title>milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="A few weeks ago I started primes, a Twitter-backed prime number generator. When I say &#8220;Twitter-backed&#8221;, I mean the bot that updates the &hellip;">
+  <meta name="description" content="I created an XKCD-style password generator for Node.js (see this comic for reference). You can find it on my github or do an npm install -g xkcd- &hellip;">
   
 
 
@@ -73,6 +73,70 @@
       <div class="row">
 <div class="blog-index nine columns">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/04/07/nodejs-xkcd-password-generator/">XKCD Password Generation for Node.js</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-07T17:30:00-07:00" pubdate data-updated="true">Apr 7<span>th</span>, 2014</time>
+        
+         | <a href="/blog/2014/04/07/nodejs-xkcd-password-generator/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I created an <a href="http://github.com/fardog/node-xkcd-password/">XKCD-style password generator for Node.js</a> (see <a href="http://xkcd.com/936/">this comic</a> for reference). You can find it <a href="http://github.com/fardog/node-xkcd-password/">on my github</a> or do an <code>npm install -g xkcd-password</code> to get it on your path.</p>
+
+<p>There are others available, but most don&#8217;t include a CLI, or easily configurable options. Many use <a href="https://github.com/rstacruz/passwordgen.js/blob/master/lib/words.js">small word lists</a>. So I made one that uses a sufficiently large list—113,809 words provided by the <a href="http://icon.shef.ac.uk/Moby/">Moby Project</a>—and both a simple commandline utility and a module that you can use in your Node.js apps. If you don&#8217;t like my wordlist, you can substitute your own easily. There is judicious use of <a href="http://github.com/caolan/async/">async</a> so you shouldn&#8217;t find it bogging down your stuff.</p>
+
+<p>Send <a href="http://github.com/fardog/node-xkcd-password/issues">issues</a> or pull requests!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Usage: xkcd-password [options]
+</span><span class='line'>
+</span><span class='line'>Options:
+</span><span class='line'>   -n, --numWords    The number of words to generate for your password.  [4]
+</span><span class='line'>   -m, --minLength   Minimum lengh of words chosen for the generated password.  [5]
+</span><span class='line'>   -x, --maxLength   Maximum length of words chosen for the generated password.  [8]
+</span><span class='line'>   -f, --wordFile    The newline-delimited list of words to be used as the source.
+</span><span class='line'>   -s, --separator   The separator character to use between words when output to the console.  [ ]
+</span><span class='line'>   --version         print version and exit</span></code></pre></td></tr></table></div></figure>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -753,52 +817,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/13/is-this-daylight-saving-time/">Is This Daylight Saving Time?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-13T00:17:00-08:00" pubdate data-updated="true">Dec 13<span>th</span>, 2012</time>
-        
-         | <a href="/blog/2012/12/13/is-this-daylight-saving-time/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://isthisdst.us">Is this Daylight Saving Time?</a> is a single-page site to determine your DST status. You can check out the source on <a href="https://github.com/fardog/isthisdst/">GitHub</a>.</p>
-
-<p>It&#8217;s an overblown build—using <a href="http://djangoproject.com">Django</a> for such a small site isn&#8217;t necessary—but it was more of an exercise than anything. The implementation is my first attempt at some best practices, namely <a href="http://fabfile.org">fabric</a> for automated deployment out of git, and <a href="https://github.com/cyberdelia/django-pipeline">pipeline</a> for css/script minification.</p>
-
-<p>Other packages used include <a href="http://pypi.python.org/pypi/pytz">pytz</a> for timezone calculations and <a href="https://github.com/boto/boto">boto</a> for automated upload of static assets to <a href="http://aws.amazon.com">S3</a>. <a href="http://foundation.zurb.com">Zurb Foundation</a> was used for the frontend.</p>
-
-<p>Geolocation is done using the City and Country IP databases from <a href="http://www.maxmind.com/en/geolocation_landing">MaxMind</a> and uses the Django-included <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoip/">django.contrib.gis.geoip</a> to read them. That resolves the lat/long, which I then send to <a href="http://www.geonames.org/">GeoNames</a> for to get the timezone. That result is cached in a local SQLite database to minimize lookups to GeoNames.</p>
-
-<p>Overall, it was a great learning experience. Like all great learning experiences it took entirely longer than I&#8217;d originally intended; all part of the fun.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -830,6 +848,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/04/07/nodejs-xkcd-password-generator/">XKCD Password Generation for Node.js</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/10/15/primes-twitter-account/">primes, A Twitter-backed prime number generator</a>
       </li>
     
@@ -843,10 +865,6 @@
     
       <li class="post">
         <a href="/blog/2013/07/12/keeping-your-countdowns-in-check/">keeping your countdowns in check</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/22/vim-fish-shell-and-sensible/">vim, fish shell, and vim-sensible</a>
       </li>
     
   </ul>

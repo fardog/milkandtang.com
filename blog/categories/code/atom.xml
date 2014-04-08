@@ -4,7 +4,7 @@
   <title><![CDATA[Category: code | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2014-03-11T12:53:35-07:00</updated>
+  <updated>2014-04-07T17:51:22-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[XKCD Password Generation for Node.js]]></title>
+    <link href="http://milkandtang.com/blog/2014/04/07/nodejs-xkcd-password-generator/"/>
+    <updated>2014-04-07T17:30:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2014/04/07/nodejs-xkcd-password-generator</id>
+    <content type="html"><![CDATA[<p>I created an <a href="http://github.com/fardog/node-xkcd-password/">XKCD-style password generator for Node.js</a> (see <a href="http://xkcd.com/936/">this comic</a> for reference). You can find it <a href="http://github.com/fardog/node-xkcd-password/">on my github</a> or do an <code>npm install -g xkcd-password</code> to get it on your path.</p>
+
+<p>There are others available, but most don't include a CLI, or easily configurable options. Many use <a href="https://github.com/rstacruz/passwordgen.js/blob/master/lib/words.js">small word lists</a>. So I made one that uses a sufficiently large list—113,809 words provided by the <a href="http://icon.shef.ac.uk/Moby/">Moby Project</a>—and both a simple commandline utility and a module that you can use in your Node.js apps. If you don't like my wordlist, you can substitute your own easily. There is judicious use of <a href="http://github.com/caolan/async/">async</a> so you shouldn't find it bogging down your stuff.</p>
+
+<p>Send <a href="http://github.com/fardog/node-xkcd-password/issues">issues</a> or pull requests!</p>
+
+<p>```
+Usage: xkcd-password [options]</p>
+
+<p>Options:
+   -n, --numWords    The number of words to generate for your password.  [4]
+   -m, --minLength   Minimum lengh of words chosen for the generated password.  [5]
+   -x, --maxLength   Maximum length of words chosen for the generated password.  [8]
+   -f, --wordFile    The newline-delimited list of words to be used as the source.
+   -s, --separator   The separator character to use between words when output to the console.  [ ]
+   --version         print version and exit
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[primes, A Twitter-backed prime number generator]]></title>
@@ -133,74 +158,6 @@ p.terminate()
 <p>```</p>
 
 <p>This simply generates a sine wave of a specified frequency and length, and writes it out to an already open PyAudio stream. A pleasant tone is produced. It's not too fancy, but it beats loading a wave file from disk.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Simple 'workon' Command for fish shell]]></title>
-    <link href="http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell/"/>
-    <updated>2013-02-15T00:15:00-08:00</updated>
-    <id>http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell</id>
-    <content type="html"><![CDATA[<p>I put together a quick <code>workon</code> clone for the <a href="http://www.ridiculousfish.com/shell/">fish's fish shell</a>. Definitely nothing as complete or useful as <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a>, but it fixes my need: switching simply between virtualenv's and projects.</p>
-
-<h2>Installation</h2>
-
-<p>First, create a function file <code>~/.config/fish/functions/workon.fish</code> with this defintion:</p>
-
-<p>```
-function workon -d "Activate virtual environment in $WORKON_HOME"
-  set tgt {$WORKON_HOME}/$argv[1]
-  if [ -d $tgt ]</p>
-
-<pre><code>cd $tgt
-
-# deactivate any active venv, and activate the target
-# this needs to be rewritten with the `type` fish command
-if test -n "$VIRTUAL_ENV"
-  deactivate
-end
-
-. bin/activate.fish
-
-if test (count $argv) -gt 1
-  if test $argv[2] = "open"
-    set -gx WORKON_OPEN_SUBLIME True
-  end
-else
-  set -ge WORKON_OPEN_SUBLIME
-end
-
-# open sublime text
-if test -n "$WORKON_OPEN_SUBLIME"
-  open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
-end
-
-# change to working dir
-if test -n "$WORKON_SRC_DIR"
-  cd {$WORKON_SRC_DIR}/{$argv[1]}
-end
-</code></pre>
-
-<p>  else</p>
-
-<pre><code>echo "$tgt not found"
-</code></pre>
-
-<p>  end
-end</p>
-
-<p>complete -c workon -a "(cd $WORKON_HOME; ls -d *)"
-```</p>
-
-<p>Then, define the necessary environment variables in your <code>~/.config/fish/config.fish</code> file:</p>
-
-<p><code>
-set -gx WORKON_HOME ~/Documents/virtual_environments
-set -gx WORKON_SRC_DIR ~/Documents/code
-set -gx WORKON_OPEN_SUBLIME True
-</code></p>
-
-<p>As you might imagine, this is set up for how I work, but it wouldn't be difficult to customize for your needs. Since this uses the virtualenv-provided <code>activate.fish</code> script, the <code>deactivate</code> command works as expected, as well as any other usual functions.</p>
 ]]></content>
   </entry>
   
