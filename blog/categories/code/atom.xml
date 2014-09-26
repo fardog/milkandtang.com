@@ -4,7 +4,7 @@
   <title><![CDATA[Category: code | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/code/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2014-09-26T12:04:32-07:00</updated>
+  <updated>2014-09-26T12:09:31-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Mac OS X Audio in node.js, and a Chromecast]]></title>
     <link href="http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/"/>
-    <updated>2014-09-26T11:36:00-07:00</updated>
+    <updated>2014-09-26T12:05:00-07:00</updated>
     <id>http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast</id>
     <content type="html"><![CDATA[<p>A few weeks ago, a simple idea formed: why can't you easily stream system audio to a Chromecast? Sure, if your chosen listening application already supports it, you're set. Otherwise you're left out.</p>
 

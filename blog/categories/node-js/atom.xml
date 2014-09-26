@@ -4,7 +4,7 @@
   <title><![CDATA[Category: node.js | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/node-js/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2014-09-26T12:04:32-07:00</updated>
+  <updated>2014-09-26T12:09:31-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Mac OS X Audio in node.js, and a Chromecast]]></title>
     <link href="http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/"/>
-    <updated>2014-09-26T11:36:00-07:00</updated>
+    <updated>2014-09-26T12:05:00-07:00</updated>
     <id>http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast</id>
     <content type="html"><![CDATA[<p>A few weeks ago, a simple idea formed: why can't you easily stream system audio to a Chromecast? Sure, if your chosen listening application already supports it, you're set. Otherwise you're left out.</p>
 
@@ -59,6 +59,57 @@
 <p>Note that both modules command-line interfaces have usage information! Just run <code>chromecast --help</code> or <code>webcast-audio --help</code> to see what options are available!</p>
 
 <p><em>Note: What we go through to solve problems, eh? All of this still assumes some familiarity with node.js—this is definitely not a solution for the non-technical. Maybe someday!</em></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[XKCD Password Generation for Node.js]]></title>
+    <link href="http://milkandtang.com/blog/2014/04/07/nodejs-xkcd-password-generator/"/>
+    <updated>2014-04-07T17:30:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2014/04/07/nodejs-xkcd-password-generator</id>
+    <content type="html"><![CDATA[<p>I created an <a href="http://github.com/fardog/node-xkcd-password/">XKCD-style password generator for Node.js</a> (see <a href="http://xkcd.com/936/">this comic</a> for reference). You can find it <a href="http://github.com/fardog/node-xkcd-password/">on my github</a> or do an <code>npm install -g xkcd-password</code> to get it on your path.</p>
+
+<p>There are others available, but most don't include a CLI, or easily configurable options. Many use <a href="https://github.com/rstacruz/passwordgen.js/blob/master/lib/words.js">small word lists</a>. So I made one that uses a sufficiently large list—113,809 words provided by the <a href="http://icon.shef.ac.uk/Moby/">Moby Project</a>—and both a simple commandline utility and a module that you can use in your Node.js apps. If you don't like my wordlist, you can substitute your own easily. Everything is non-blocking, so you shouldn't find it bogging down your stuff.</p>
+
+<p>Send <a href="http://github.com/fardog/node-xkcd-password/issues">issues</a> or pull requests!</p>
+
+<p>```
+Usage: xkcd-password [options]</p>
+
+<p>Options:
+   -n, --numWords    The number of words to generate for your password.  [4]
+   -m, --minLength   Minimum lengh of words chosen for the generated password.  [5]
+   -x, --maxLength   Maximum length of words chosen for the generated password.  [8]
+   -f, --wordFile    The newline-delimited list of words to be used as the source.
+   -s, --separator   The separator character to use between words when output to the console.  [ ]
+   --version         print version and exit
+```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[primes, A Twitter-backed prime number generator]]></title>
+    <link href="http://milkandtang.com/blog/2013/10/15/primes-twitter-account/"/>
+    <updated>2013-10-15T15:44:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2013/10/15/primes-twitter-account</id>
+    <content type="html"><![CDATA[<p><a href="https://twitter.com/_primes_"><img src="/media/2013-10-16_primes.png" alt="_primes_ Twitter avatar" /></a></p>
+
+<p>A few weeks ago I started <a href="https://twitter.com/_primes_"><em>primes</em></a>, a Twitter-backed <a href="http://en.wikipedia.org/wiki/Prime_number">prime number</a> generator. When I say "Twitter-backed", I mean the bot that updates the account has very little idea of state: it only knows the last number it calculated because Twitter provides it. The program flow is this:</p>
+
+<ol>
+<li>Start up</li>
+<li>Fetch the most recently calculated prime from the Twitter feed.</li>
+<li>Calculate the next prime.</li>
+<li>Post if an hour has passed since the last posting. Wait if not, then post.</li>
+<li>Steps 2–4 forever.</li>
+</ol>
+
+
+<p>Technically steps two and four are merged after the first posting, since Twitter returns your latest tweet as a response when you post it. You can <a href="http://github.com/fardog/_primes_">view the code</a> on Github. It's written in CoffeeScript on Node.js, and uses <a href="https://github.com/laverdet/node-fibers">node-fibers</a> since I orginally built the prime number algorithm as a <a href="http://en.wikipedia.org/wiki/Generator_(computer_programming)">generator</a>, but it's unnecessary in this case.</p>
+
+<p>The only state the application maintains is an internal "last posting" date, just as a fail-safe if the server it runs on spontaneously changed time: I didn't want it accidentally posting too quickly.</p>
+
+<p>You should give it a follow if you love primes! Or maybe <a href="http://github.com/fardog/_primes_">fork the code</a> and make some new Twitter bots? I'd love to see some.</p>
 ]]></content>
   </entry>
   
