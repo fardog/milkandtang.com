@@ -104,7 +104,8 @@ figure.code, .gist-file, pre {
 }
 
 .gist .highlight, figure.code .highlight {
-  @include selection(adjust-color($base03, $lightness: 23%, $saturation: -65%), $text-shadow: $base03 0 1px);
+  //@include selection(adjust-color($base03, $lightness: 23%, $saturation: 100%), $text-shadow: $base03 0 1px);
+	@include selection(#f7931d, $color: #fff);
 }
 html .gist .gist-file {
   margin-bottom: 1.8em;

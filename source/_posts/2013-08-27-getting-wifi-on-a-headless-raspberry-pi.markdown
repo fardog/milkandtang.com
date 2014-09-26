@@ -35,9 +35,9 @@ iface YOUR_WIFI_ID inet static
 address 192.168.1.5
 netmask 255.255.255.0
 gateway 192.168.1.1
-```
 
 # iface default inet dhcp
+```
 
 This is setting up your ethernet to dhcp, your wifi to manual, sourcing the `wpa_supplicant.conf` file, and then assigning your named Wireless connection to a static IP. Note that *YOUR_WIFI_ID* above should be an identifier you make up yourself. For example, mine is *NORTH_WPA*.
 
@@ -62,4 +62,16 @@ Again, note that *YOUR_WIFI_ID* is present.
 At that point, reboot. Assuming you've got all your information correct (and that your key management and etc. match mine) you'll be connected automatically at boot!
 
 Much of the information in this post was gleaned from [this thread](http://pingbin.com/2012/12/setup-wifi-raspberry-pi/). The original poster's information didn't work for me, but I was able to assemble a working config from various commenters' information.
+
+#### UPDATE 2014-01-06
+
+When I switched from the older-style Airport Extreme base stations to the new "tower"-shaped base stations, I was having issues with the WiFi disconnected and then not reconnecting without a reboot. To resolve this, I followed one of the answers in [this stack exchange post](http://raspberrypi.stackexchange.com/questions/4120/how-to-automatically-reconnect-wifi), reproduced below for convenience. This is originally from the user [AndaluZ](http://raspberrypi.stackexchange.com/users/6365/andaluz): 
+
+> Well, there is a very simple solution:
+> 
+> 1. Go to `/etc/ifplugd/action.d/` and rename the `ifupdown` file to `ifupdown.original`
+> 2. Then do: `cp /etc/wpa_supplicant/ifupdown.sh ./ifupdown`
+> 3. Finally: `sudo reboot`
+> 
+> That's all. Test this by turning off/on your AP; you should see that your Raspberry Pi properly reconnects.
 

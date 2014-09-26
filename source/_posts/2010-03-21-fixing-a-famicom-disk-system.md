@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Fixing a Famicom Disk System
 author: Nate
 layout: post
@@ -16,7 +17,7 @@ tags:
   - Twin Famicom
 ---
 
-*Copied over from my old blog when it was decommissioned. Preserving it here since it's helped some people in the past.*
+***Update 2013-10-08:** There is now a [great article available](http://www.famicomdisksystem.com/tutorials/fds-repair-mod/belt-replacement-adjustment/) at the [Famicom Disk System](http://www.famicomdisksystem.com/) site, which I'd highly recommend. See [my addendum](http://milkandtang.com/blog/2013/10/08/an-addendum-to-fixing-a-famicom-disk-system/) for more info.*
 
 This isn’t the usual fare from this blog, but this is good information that took me quite some time to find. I’m also an avid video game collector, and i recently picked up a [Sharp Twin Famicom][1] and a few [Famicom Disk System][2] games; notably Kid Icarus and the infamous [Doki Doki Panic!][3], which later became the USA/World *Super Mario Brothers 2*.
 
@@ -94,8 +95,8 @@ Then, a commenter named "Jon" posted the following:
 
 > Thanks for posting this! When I got a “broken” FDS recently this helped direct me towards the cure.
 > 
-I did find a much more direct & accurate way to align these though. It can be done during belt replacement & should eliminate the need for fine-tuning > afterward.
+I did find a much more direct & accurate way to align these though. It can be done during belt replacement & should eliminate the need for fine-tuning afterward.
 > 
-How? When the gear assembly retainer (triangular piece) is removed for belt replacement, simply point the rectangular notch in the large white gear to > the largest notch in the metal cam below it.
+How? When the gear assembly retainer (triangular piece) is removed for belt replacement, simply point the rectangular notch in the large white gear to the largest notch in the metal cam below it.
 > 
-Maintain those positions during reinstall & you should be good to go. No need to hunt for a hex key (1.5mm BTW) to adjust the disk catch on the spindle &>  all positioning remains at original factory settings.
+Maintain those positions during reinstall & you should be good to go. No need to hunt for a hex key (1.5mm BTW) to adjust the disk catch on the spindle & all positioning remains at original factory settings.
