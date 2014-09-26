@@ -14,7 +14,7 @@
   <title>milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="Is this Daylight Saving Time? is a single-page site to determine your DST status. You can check out the source on GitHub. It&#8217;s an overblown &hellip;">
+  <meta name="description" content="I put together a quick workon clone for the fish&#8217;s fish shell. Definitely nothing as complete or useful as virtualenvwrapper, but it fixes my &hellip;">
   
 
 
@@ -73,6 +73,134 @@
       <div class="row">
 <div class="blog-index nine columns">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/15/simple-workon-command-for-fish-shell/">Simple &#8216;Workon&#8217; Command for Fish Shell</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-02-15T00:15:00-08:00" pubdate data-updated="true">Feb 15<span>th</span>, 2013</time>
+        
+         | <a href="/blog/2013/02/15/simple-workon-command-for-fish-shell/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>I put together a quick <code>workon</code> clone for the <a href="http://www.ridiculousfish.com/shell/">fish&#8217;s fish shell</a>. Definitely nothing as complete or useful as <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a>, but it fixes my need: switching simply between virtualenv&#8217;s and projects.</p>
+
+<h2>Installation</h2>
+
+<p>First, create a function file <code>~/.config/fish/functions/workon.fish</code> with this defintion:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>function workon -d "Activate virtual environment in $WORKON_HOME"
+</span><span class='line'>  set tgt {$WORKON_HOME}/$argv[1]
+</span><span class='line'>  if [ -d $tgt ]
+</span><span class='line'>    cd $tgt
+</span><span class='line'>
+</span><span class='line'>    # deactivate any active venv, and activate the target
+</span><span class='line'>    # this needs to be rewritten with the `type` fish command
+</span><span class='line'>    if test -n "$VIRTUAL_ENV"
+</span><span class='line'>      deactivate
+</span><span class='line'>    end
+</span><span class='line'>
+</span><span class='line'>    . bin/activate.fish
+</span><span class='line'>
+</span><span class='line'>    if test (count $argv) -gt 1
+</span><span class='line'>      if test $argv[2] = "open"
+</span><span class='line'>        set -gx WORKON_OPEN_SUBLIME True
+</span><span class='line'>      end
+</span><span class='line'>    else
+</span><span class='line'>      set -ge WORKON_OPEN_SUBLIME
+</span><span class='line'>    end
+</span><span class='line'>
+</span><span class='line'>    # open sublime text
+</span><span class='line'>    if test -n "$WORKON_OPEN_SUBLIME"
+</span><span class='line'>      open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
+</span><span class='line'>    end
+</span><span class='line'>
+</span><span class='line'>    # change to working dir
+</span><span class='line'>    if test -n "$WORKON_SRC_DIR"
+</span><span class='line'>      cd {$WORKON_SRC_DIR}/{$argv[1]}
+</span><span class='line'>    end
+</span><span class='line'>  else
+</span><span class='line'>    echo "$tgt not found"
+</span><span class='line'>  end
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>complete -c workon -a "(cd $WORKON_HOME; ls -d *)"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, define the necessary environment variables in your <code>~/.config/fish/config.fish</code> file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>set -gx WORKON_HOME ~/Documents/virtual_environments
+</span><span class='line'>set -gx WORKON_SRC_DIR ~/Documents/code
+</span><span class='line'>set -gx WORKON_OPEN_SUBLIME True</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As you might imagine, this is set up for how I work, but it wouldn&#8217;t be difficult to customize for your needs. Since this uses the virtualenv-provided <code>activate.fish</code> script, the <code>deactivate</code> command works as expected, as well as any other usual functions.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -271,6 +399,10 @@ ERROR 31 Data number of a disk card doesn’t match up.</p></blockquote>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/">Mac OS X Audio in node.js, and a Chromecast</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/04/07/nodejs-xkcd-password-generator/">XKCD Password Generation for Node.js</a>
       </li>
     
@@ -284,10 +416,6 @@ ERROR 31 Data number of a disk card doesn’t match up.</p></blockquote>
     
       <li class="post">
         <a href="/blog/2013/08/27/getting-wifi-on-a-headless-raspberry-pi/">Getting WiFi on a Headless Raspberry Pi</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/12/keeping-your-countdowns-in-check/">keeping your countdowns in check</a>
       </li>
     
   </ul>

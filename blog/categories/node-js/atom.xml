@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Node.js | milkandtang]]></title>
+  <title><![CDATA[Category: node.js | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/node-js/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2014-08-14T10:17:54-07:00</updated>
+  <updated>2014-09-26T12:04:32-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -14,53 +14,51 @@
 
   
   <entry>
-    <title type="html"><![CDATA[XKCD Password Generation for Node.js]]></title>
-    <link href="http://milkandtang.com/blog/2014/04/07/nodejs-xkcd-password-generator/"/>
-    <updated>2014-04-07T17:30:00-07:00</updated>
-    <id>http://milkandtang.com/blog/2014/04/07/nodejs-xkcd-password-generator</id>
-    <content type="html"><![CDATA[<p>I created an <a href="http://github.com/fardog/node-xkcd-password/">XKCD-style password generator for Node.js</a> (see <a href="http://xkcd.com/936/">this comic</a> for reference). You can find it <a href="http://github.com/fardog/node-xkcd-password/">on my github</a> or do an <code>npm install -g xkcd-password</code> to get it on your path.</p>
+    <title type="html"><![CDATA[Mac OS X Audio in node.js, and a Chromecast]]></title>
+    <link href="http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/"/>
+    <updated>2014-09-26T11:36:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast</id>
+    <content type="html"><![CDATA[<p>A few weeks ago, a simple idea formed: why can't you easily stream system audio to a Chromecast? Sure, if your chosen listening application already supports it, you're set. Otherwise you're left out.</p>
 
-<p>There are others available, but most don't include a CLI, or easily configurable options. Many use <a href="https://github.com/rstacruz/passwordgen.js/blob/master/lib/words.js">small word lists</a>. So I made one that uses a sufficiently large list—113,809 words provided by the <a href="http://icon.shef.ac.uk/Moby/">Moby Project</a>—and both a simple commandline utility and a module that you can use in your Node.js apps. If you don't like my wordlist, you can substitute your own easily. Everything is non-blocking, so you shouldn't find it bogging down your stuff.</p>
+<p>A solution seemed simple: node.js has <a href="http://nodejs.org/api/stream.html">streams</a>, and they're awesome! Take system audio, pipe it to an encoder, pipe that to an HTTP response, and tell the Chromecast where to look. Easy!</p>
 
-<p>Send <a href="http://github.com/fardog/node-xkcd-password/issues">issues</a> or pull requests!</p>
+<p>Except, there's no node.js package that supports OS X audio input, except via <a href="https://www.npmjs.org/package/node-core-audio">bindings to another library</a>. I wanted to write something that was only dependent on the OS X core frameworks.</p>
 
-<p>```
-Usage: xkcd-password [options]</p>
+<h2>Hello <a href="https://www.npmjs.org/package/osx-audio">osx-audio</a></h2>
 
-<p>Options:
-   -n, --numWords    The number of words to generate for your password.  [4]
-   -m, --minLength   Minimum lengh of words chosen for the generated password.  [5]
-   -x, --maxLength   Maximum length of words chosen for the generated password.  [8]
-   -f, --wordFile    The newline-delimited list of words to be used as the source.
-   -s, --separator   The separator character to use between words when output to the console.  [ ]
-   --version         print version and exit
-```</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[primes, A Twitter-backed prime number generator]]></title>
-    <link href="http://milkandtang.com/blog/2013/10/15/primes-twitter-account/"/>
-    <updated>2013-10-15T15:44:00-07:00</updated>
-    <id>http://milkandtang.com/blog/2013/10/15/primes-twitter-account</id>
-    <content type="html"><![CDATA[<p><a href="https://twitter.com/_primes_"><img src="/media/2013-10-16_primes.png" alt="_primes_ Twitter avatar" /></a></p>
+<p>A few weeks later, and there's a solution (writing your first node.js native binding is hard!). <a href="https://www.npmjs.org/package/osx-audio">osx-audio</a> will allow you to get a readable stream from your currently-selected OS X audio input. It only depends on the frameworks available in Mac OS X, so if you can compile any other native node.js extension, you should be able to install it!</p>
 
-<p>A few weeks ago I started <a href="https://twitter.com/_primes_"><em>primes</em></a>, a Twitter-backed <a href="http://en.wikipedia.org/wiki/Prime_number">prime number</a> generator. When I say "Twitter-backed", I mean the bot that updates the account has very little idea of state: it only knows the last number it calculated because Twitter provides it. The program flow is this:</p>
+<p>You should check it out if audio input's the thing you need. Output will be implemented in the future too!</p>
+
+<h2>How about the Chromecast?</h2>
+
+<p><a href="https://www.npmjs.org/package/chromecast-osx-audio">Solved</a>, but it still requires an additional piece of software. You see, OS X doesn't provide native methods for accessing system audio (the output of the system mixer) so anything that's not an input (like the microphone) is inaccessible. However, there's a open source utility called <a href="http://rogueamoeba.com/freebies/soundflower/">Soundflower</a> that solves this for you. If you're unfamiliar with it, here's a step by step to get it working:</p>
 
 <ol>
-<li>Start up</li>
-<li>Fetch the most recently calculated prime from the Twitter feed.</li>
-<li>Calculate the next prime.</li>
-<li>Post if an hour has passed since the last posting. Wait if not, then post.</li>
-<li>Steps 2–4 forever.</li>
+<li>Install <a href="http://rogueamoeba.com/freebies/soundflower/">Soundflower</a>. Reboot.</li>
+<li>Install <a href="https://www.npmjs.org/package/chromecast-osx-audio">chromecast-osx-audio</a> globally, with an <code>npm install -g chromecast-osx-audio</code></li>
+<li>Open your <em>System Preferences -> Sound</em> preference pane, and select "Soundflower (2ch)" as both your input and output.</li>
+<li>Run <code>chromecast</code> in your terminal. It will find the first-available Chromecast, and stream your system audio to it.</li>
+<li>Play your music/audio as normal. There is a 5–15   second delay due to how the Chromecast buffers.</li>
+<li>Enjoy</li>
 </ol>
 
 
-<p>Technically steps two and four are merged after the first posting, since Twitter returns your latest tweet as a response when you post it. You can <a href="http://github.com/fardog/_primes_">view the code</a> on Github. It's written in CoffeeScript on Node.js, and uses <a href="https://github.com/laverdet/node-fibers">node-fibers</a> since I orginally built the prime number algorithm as a <a href="http://en.wikipedia.org/wiki/Generator_(computer_programming)">generator</a>, but it's unnecessary in this case.</p>
+<h2>Ok, great. I don't have a Chromecast</h2>
 
-<p>The only state the application maintains is an internal "last posting" date, just as a fail-safe if the server it runs on spontaneously changed time: I didn't want it accidentally posting too quickly.</p>
+<p>They are pretty cheap! But, I wrote a generic module that just exposes a live mp3 stream of your system audio. It's called <a href="https://www.npmjs.org/package/webcast-osx-audio">webcast-osx-audio</a>, and it's what <a href="https://www.npmjs.org/package/chromecast-osx-audio">chromecast-osx-audio</a> relies on for it's streaming component. You can install it just as above, and it exposes a <code>webcast-audio</code> command when installed globally. Connect to <em>http://your_local_ip:3000/stream.mp3</em> and you're good to go!</p>
 
-<p>You should give it a follow if you love primes! Or maybe <a href="http://github.com/fardog/_primes_">fork the code</a> and make some new Twitter bots? I'd love to see some.</p>
+<h2>What's next?</h2>
+
+<ul>
+<li>I still need to write the input-side of <a href="https://www.npmjs.org/package/osx-audio">osx-audio</a> before I consider it complete. And tests!</li>
+<li><a href="https://www.npmjs.org/package/chromecast-osx-audio">chromecast-osx-audio</a> will only stream to the first Chromecast it finds. I plan to implement an interface that allows you to select which you'd like to stream to if multiple are found. That'll be in before v1.0.</li>
+</ul>
+
+
+<p>Note that both modules command-line interfaces have usage information! Just run <code>chromecast --help</code> or <code>webcast-audio --help</code> to see what options are available!</p>
+
+<p><em>Note: What we go through to solve problems, eh? All of this still assumes some familiarity with node.js—this is definitely not a solution for the non-technical. Maybe someday!</em></p>
 ]]></content>
   </entry>
   

@@ -11,10 +11,10 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>An Addendum to "Fixing a Famicom Disk System" - milkandtang</title>
+  <title>Mac OS X Audio in node.js, and a Chromecast - milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="My old Sharp Twin Famicom threw the belt again, as they do. While replacing it, I wanted to make an update to my previous blog post about FDS belts, &hellip;">
+  <meta name="description" content="A few weeks ago, a simple idea formed: why can&#8217;t you easily stream system audio to a Chromecast? Sure, if your chosen listening application &hellip;">
   
 
 
@@ -24,7 +24,7 @@
 
 
   
-  <link rel="canonical" href="http://milkandtang.com/blog/2013/10/08/an-addendum-to-fixing-a-famicom-disk-system/">
+  <link rel="canonical" href="http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/>
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/>
@@ -76,7 +76,7 @@
       
   <header>
     
-      <h1 class="entry-title">An Addendum to "Fixing a Famicom Disk System"</h1>
+      <h1 class="entry-title">Mac OS X Audio in node.js, and a Chromecast</h1>
     
     
       <p class="meta">
@@ -92,7 +92,7 @@
   
 
 
-<time datetime="2013-10-08T09:25:00-07:00" pubdate data-updated="true">Oct 8<span>th</span>, 2013</time>
+<time datetime="2014-09-26T11:36:00-07:00" pubdate data-updated="true">Sep 26<span>th</span>, 2014</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -101,11 +101,47 @@
   </header>
 
 
-<div class="entry-content"><p>My old <a href="http://en.wikipedia.org/wiki/Twin_Famicom">Sharp Twin Famicom</a> threw the belt again, as they do. While replacing it, I wanted to make an update to <a href="http://milkandtang.com/blog/2010/03/21/fixing-a-famicom-disk-system/">my previous blog post</a> about <a href="http://en.wikipedia.org/wiki/Family_Computer_Disk_System">FDS</a> belts, since my old article wasn&#8217;t as helpful as I&#8217;d have liked when I actually tried to use it.</p>
+<div class="entry-content"><p>A few weeks ago, a simple idea formed: why can&#8217;t you easily stream system audio to a Chromecast? Sure, if your chosen listening application already supports it, you&#8217;re set. Otherwise you&#8217;re left out.</p>
 
-<p>First, there&#8217;s now a <a href="http://www.famicomdisksystem.com/tutorials/fds-repair-mod/belt-replacement-adjustment/">far better repair article</a> available at the <a href="http://www.famicomdisksystem.com/">Famicom Disk System</a> website. This goes through the whole process of belt replacement as well as aligning the spindle hub, which I had a lot of problems with this time.</p>
+<p>A solution seemed simple: node.js has <a href="http://nodejs.org/api/stream.html">streams</a>, and they&#8217;re awesome! Take system audio, pipe it to an encoder, pipe that to an HTTP response, and tell the Chromecast where to look. Easy!</p>
 
-<p>I&#8217;d recommend following <a href="http://www.famicomdisksystem.com/tutorials/fds-repair-mod/belt-replacement-adjustment/">their article</a> over mine; it does a far better job of explaining how to align the spindle hub. The only addition I would make is that I still had to make small 5–10&deg; adjustments both forward and backward to the spindle hub before everything worked.</p>
+<p>Except, there&#8217;s no node.js package that supports OS X audio input, except via <a href="https://www.npmjs.org/package/node-core-audio">bindings to another library</a>. I wanted to write something that was only dependent on the OS X core frameworks.</p>
+
+<h2>Hello <a href="https://www.npmjs.org/package/osx-audio">osx-audio</a></h2>
+
+<p>A few weeks later, and there&#8217;s a solution (writing your first node.js native binding is hard!). <a href="https://www.npmjs.org/package/osx-audio">osx-audio</a> will allow you to get a readable stream from your currently-selected OS X audio input. It only depends on the frameworks available in Mac OS X, so if you can compile any other native node.js extension, you should be able to install it!</p>
+
+<p>You should check it out if audio input&#8217;s the thing you need. Output will be implemented in the future too!</p>
+
+<h2>How about the Chromecast?</h2>
+
+<p><a href="https://www.npmjs.org/package/chromecast-osx-audio">Solved</a>, but it still requires an additional piece of software. You see, OS X doesn&#8217;t provide native methods for accessing system audio (the output of the system mixer) so anything that&#8217;s not an input (like the microphone) is inaccessible. However, there&#8217;s a open source utility called <a href="http://rogueamoeba.com/freebies/soundflower/">Soundflower</a> that solves this for you. If you&#8217;re unfamiliar with it, here&#8217;s a step by step to get it working:</p>
+
+<ol>
+<li>Install <a href="http://rogueamoeba.com/freebies/soundflower/">Soundflower</a>. Reboot.</li>
+<li>Install <a href="https://www.npmjs.org/package/chromecast-osx-audio">chromecast-osx-audio</a> globally, with an <code>npm install -g chromecast-osx-audio</code></li>
+<li>Open your <em>System Preferences -> Sound</em> preference pane, and select &#8220;Soundflower (2ch)&#8221; as both your input and output.</li>
+<li>Run <code>chromecast</code> in your terminal. It will find the first-available Chromecast, and stream your system audio to it.</li>
+<li>Play your music/audio as normal. There is a 5–15   second delay due to how the Chromecast buffers.</li>
+<li>Enjoy</li>
+</ol>
+
+
+<h2>Ok, great. I don&#8217;t have a Chromecast</h2>
+
+<p>They are pretty cheap! But, I wrote a generic module that just exposes a live mp3 stream of your system audio. It&#8217;s called <a href="https://www.npmjs.org/package/webcast-osx-audio">webcast-osx-audio</a>, and it&#8217;s what <a href="https://www.npmjs.org/package/chromecast-osx-audio">chromecast-osx-audio</a> relies on for it&#8217;s streaming component. You can install it just as above, and it exposes a <code>webcast-audio</code> command when installed globally. Connect to <em>http://your_local_ip:3000/stream.mp3</em> and you&#8217;re good to go!</p>
+
+<h2>What&#8217;s next?</h2>
+
+<ul>
+<li>I still need to write the input-side of <a href="https://www.npmjs.org/package/osx-audio">osx-audio</a> before I consider it complete. And tests!</li>
+<li><a href="https://www.npmjs.org/package/chromecast-osx-audio">chromecast-osx-audio</a> will only stream to the first Chromecast it finds. I plan to implement an interface that allows you to select which you&#8217;d like to stream to if multiple are found. That&#8217;ll be in before v1.0.</li>
+</ul>
+
+
+<p>Note that both modules command-line interfaces have usage information! Just run <code>chromecast --help</code> or <code>webcast-audio --help</code> to see what options are available!</p>
+
+<p><em>Note: What we go through to solve problems, eh? All of this still assumes some familiarity with node.js—this is definitely not a solution for the non-technical. Maybe someday!</em></p>
 </div>
 
 
@@ -128,12 +164,12 @@
   
 
 
-<time datetime="2013-10-08T09:25:00-07:00" pubdate data-updated="true">Oct 8<span>th</span>, 2013</time>
+<time datetime="2014-09-26T11:36:00-07:00" pubdate data-updated="true">Sep 26<span>th</span>, 2014</time>
           
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/electronics/'>Electronics</a>, <a class='category' href='/blog/categories/gaming/'>Gaming</a>, <a class='category' href='/blog/categories/repair/'>Repair</a>
+    <a class='category' href='/blog/categories/javascript/'>Javascript</a>, <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/node-js/'>node.js</a>, <a class='category' href='/blog/categories/projects/'>projects</a>
   
 </span>
 
@@ -149,10 +185,8 @@
         
         <p class="meta">
           
-            <a class="basic-alignment left" href="/blog/2013/08/27/getting-wifi-on-a-headless-raspberry-pi/" title="Previous Post: Getting WiFi on a Headless Raspberry Pi">&laquo; Getting WiFi on a Headless Raspberry Pi</a>
+            <a class="basic-alignment left" href="/blog/2014/04/07/nodejs-xkcd-password-generator/" title="Previous Post: XKCD Password Generation for Node.js">&laquo; XKCD Password Generation for Node.js</a>
           
-          
-            <a class="basic-alignment right" href="/blog/2013/10/15/primes-twitter-account/" title="Next Post: primes, A Twitter-backed prime number generator">primes, A Twitter-backed prime number generator &raquo;</a>
           
         </p>
       </footer>
@@ -247,8 +281,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://milkandtang.com/blog/2013/10/08/an-addendum-to-fixing-a-famicom-disk-system/';
-        var disqus_url = 'http://milkandtang.com/blog/2013/10/08/an-addendum-to-fixing-a-famicom-disk-system/';
+        var disqus_identifier = 'http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/';
+        var disqus_url = 'http://milkandtang.com/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/';
         var disqus_script = 'embed.js';
       
     (function () {
