@@ -3,7 +3,7 @@ layout: post
 title: XKCD Password Generation for Node.js
 date: 2014-04-07 17:30
 comments: true
-categories: [code, Javascript, projects, Node.js]
+categories: [code, Javascript, projects, node.js]
 ---
 
 I created an [XKCD-style password generator for Node.js][github] (see [this comic][xkcd] for reference). You can find it [on my github][github] or do an `npm install -g xkcd-password` to get it on your path.

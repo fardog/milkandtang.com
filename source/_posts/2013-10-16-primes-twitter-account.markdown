@@ -3,7 +3,7 @@ layout: post
 title: primes, A Twitter-backed prime number generator
 date: 2013-10-15 15:44
 comments: true
-categories: [code, Javascript, projects, Node.js]
+categories: [code, Javascript, projects, node.js]
 ---
 
 [![_primes_ Twitter avatar](/media/2013-10-16_primes.png)][1]
