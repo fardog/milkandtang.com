@@ -41,7 +41,7 @@ They are pretty cheap! But, I wrote a generic module that just exposes a live mp
 
 ## What's next?
 
-- I still need to write the input-side of [osx-audio][osx-audio] before I consider it complete. And tests!
+- I still need to write the <del>input-side</del> output-side of [osx-audio][osx-audio] before I consider it complete. And tests!
 - [chromecast-osx-audio][chromecast-osx-audio] will only stream to the first Chromecast it finds. I plan to implement an interface that allows you to select which you'd like to stream to if multiple are found. That'll be in before v1.0.
 
 Note that both modules command-line interfaces have usage information! Just run `chromecast --help` or `webcast-audio --help` to see what options are available!
