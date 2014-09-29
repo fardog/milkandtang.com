@@ -4,7 +4,7 @@
   <title><![CDATA[Category: node.js | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/node-js/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2014-09-26T12:09:31-07:00</updated>
+  <updated>2014-09-29T14:47:29-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -51,7 +51,7 @@
 <h2>What's next?</h2>
 
 <ul>
-<li>I still need to write the input-side of <a href="https://www.npmjs.org/package/osx-audio">osx-audio</a> before I consider it complete. And tests!</li>
+<li>I still need to write the <del>input-side</del> output-side of <a href="https://www.npmjs.org/package/osx-audio">osx-audio</a> before I consider it complete. And tests!</li>
 <li><a href="https://www.npmjs.org/package/chromecast-osx-audio">chromecast-osx-audio</a> will only stream to the first Chromecast it finds. I plan to implement an interface that allows you to select which you'd like to stream to if multiple are found. That'll be in before v1.0.</li>
 </ul>
 
