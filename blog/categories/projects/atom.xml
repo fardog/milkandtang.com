@@ -4,7 +4,7 @@
   <title><![CDATA[Category: projects | milkandtang]]></title>
   <link href="http://milkandtang.com/blog/categories/projects/atom.xml" rel="self"/>
   <link href="http://milkandtang.com/"/>
-  <updated>2014-09-29T14:47:29-07:00</updated>
+  <updated>2014-10-23T14:26:31-07:00</updated>
   <id>http://milkandtang.com/</id>
   <author>
     <name><![CDATA[Nathan Wittstock]]></name>
@@ -12,6 +12,24 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Retiring some old projects]]></title>
+    <link href="http://milkandtang.com/blog/2014/10/23/retiring-old-projects/"/>
+    <updated>2014-10-23T14:15:00-07:00</updated>
+    <id>http://milkandtang.com/blog/2014/10/23/retiring-old-projects</id>
+    <content type="html"><![CDATA[<p>Some changes are coming; they're changes for me, but a secondary effect is that I no longer have free hosting for some projects that have been in unmaintained-but-still-running status for the last few years. I'm taking the following offline:</p>
+
+<ul>
+<li><a href="http://adventure.fardo.gs">Adventure</a>: My "Choose your own adventure"-like story builder. This hasn't seen an update since early 2012; very few people were using it. Re-launching this application would require a considerable effort, so I'm taking this offline for the foreseeable future. It's been backed up, and the source code has been <a href="https://github.com/fardog/adventure">open sourced</a>. If anyone wants to help resurrect this, please contact me via <a href="https://twitter.com/milkandtang">twitter</a>.</li>
+<li><a href="http://isthisdst.us/">Is this DST?</a>: My geo-aware single-serving site that lets you know if you're in daylight saving time or not. Similar to above, I'm taking it offline vs the effort to relaunch. Again, <a href="https://github.com/fardog/isthisdst">source code is available</a>. I may get the urge to bring this one back online again.</li>
+<li><a href="http://www.fardogllc.com">Far Dog LLC</a>: I spun down this LLC a few years ago, the website never had much on it.</li>
+</ul>
+
+
+<p>Thanks for understanding. Onward!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Mac OS X Audio in node.js, and a Chromecast]]></title>
@@ -123,23 +141,6 @@ Usage: xkcd-password [options]</p>
 <p>I've actually started some additional work on it—such as long-running timers that are remembered if you leave the site—but I'll probably come back to those some other day. Also this includes my newest pre-deployment processing scripts, which perform automatic minification and building from <a href="http://jinja.pocoo.org/">jinja</a> templates. They may be of interest to someone.</p>
 
 <p>Timer's source is <a href="http://github.com/fardog/timer/">available on my github</a>. I would love to see some patches or improvements! Or, just enjoy as-is.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Is this Daylight Saving Time?]]></title>
-    <link href="http://milkandtang.com/blog/2012/12/13/is-this-daylight-saving-time/"/>
-    <updated>2012-12-13T00:17:00-08:00</updated>
-    <id>http://milkandtang.com/blog/2012/12/13/is-this-daylight-saving-time</id>
-    <content type="html"><![CDATA[<p><a href="http://isthisdst.us">Is this Daylight Saving Time?</a> is a single-page site to determine your DST status. You can check out the source on <a href="https://github.com/fardog/isthisdst/">GitHub</a>.</p>
-
-<p>It's an overblown build—using <a href="http://djangoproject.com">Django</a> for such a small site isn't necessary—but it was more of an exercise than anything. The implementation is my first attempt at some best practices, namely <a href="http://fabfile.org">fabric</a> for automated deployment out of git, and <a href="https://github.com/cyberdelia/django-pipeline">pipeline</a> for css/script minification.</p>
-
-<p>Other packages used include <a href="http://pypi.python.org/pypi/pytz">pytz</a> for timezone calculations and <a href="https://github.com/boto/boto">boto</a> for automated upload of static assets to <a href="http://aws.amazon.com">S3</a>. <a href="http://foundation.zurb.com">Zurb Foundation</a> was used for the frontend.</p>
-
-<p>Geolocation is done using the City and Country IP databases from <a href="http://www.maxmind.com/en/geolocation_landing">MaxMind</a> and uses the Django-included <a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/geoip/">django.contrib.gis.geoip</a> to read them. That resolves the lat/long, which I then send to <a href="http://www.geonames.org/">GeoNames</a> for to get the timezone. That result is cached in a local SQLite database to minimize lookups to GeoNames.</p>
-
-<p>Overall, it was a great learning experience. Like all great learning experiences it took entirely longer than I'd originally intended; all part of the fun.</p>
 ]]></content>
   </entry>
   

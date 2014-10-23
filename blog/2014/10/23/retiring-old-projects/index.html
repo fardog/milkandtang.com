@@ -11,10 +11,10 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Simple 'workon' Command for fish shell - milkandtang</title>
+  <title>Retiring some old projects - milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="I put together a quick workon clone for the fish&#8217;s fish shell. Definitely nothing as complete or useful as virtualenvwrapper, but it fixes my &hellip;">
+  <meta name="description" content="Some changes are coming; they&#8217;re changes for me, but a secondary effect is that I no longer have free hosting for some projects that have been &hellip;">
   
 
 
@@ -24,7 +24,7 @@
 
 
   
-  <link rel="canonical" href="http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell/">
+  <link rel="canonical" href="http://milkandtang.com/blog/2014/10/23/retiring-old-projects/">
 
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144x144-precomposed.png"/>
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/apple-touch-icon-114x114-precomposed.png"/>
@@ -76,7 +76,7 @@
       
   <header>
     
-      <h1 class="entry-title">Simple 'Workon' Command for Fish Shell</h1>
+      <h1 class="entry-title">Retiring Some Old Projects</h1>
     
     
       <p class="meta">
@@ -92,7 +92,7 @@
   
 
 
-<time datetime="2013-02-15T00:15:00-08:00" pubdate data-updated="true">Feb 15<span>th</span>, 2013</time>
+<time datetime="2014-10-23T14:15:00-07:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2014</time>
         
          | <a href="#disqus_thread">Comments</a>
         
@@ -101,97 +101,16 @@
   </header>
 
 
-<div class="entry-content"><p>I put together a quick <code>workon</code> clone for the <a href="http://www.ridiculousfish.com/shell/">fish&#8217;s fish shell</a>. Definitely nothing as complete or useful as <a href="http://www.doughellmann.com/projects/virtualenvwrapper/">virtualenvwrapper</a>, but it fixes my need: switching simply between virtualenv&#8217;s and projects.</p>
+<div class="entry-content"><p>Some changes are coming; they&#8217;re changes for me, but a secondary effect is that I no longer have free hosting for some projects that have been in unmaintained-but-still-running status for the last few years. I&#8217;m taking the following offline:</p>
 
-<h2>Installation</h2>
-
-<p>First, create a function file <code>~/.config/fish/functions/workon.fish</code> with this defintion:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-<span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>function workon -d "Activate virtual environment in $WORKON_HOME"
-</span><span class='line'>  set tgt {$WORKON_HOME}/$argv[1]
-</span><span class='line'>  if [ -d $tgt ]
-</span><span class='line'>    cd $tgt
-</span><span class='line'>
-</span><span class='line'>    # deactivate any active venv, and activate the target
-</span><span class='line'>    # this needs to be rewritten with the `type` fish command
-</span><span class='line'>    if test -n "$VIRTUAL_ENV"
-</span><span class='line'>      deactivate
-</span><span class='line'>    end
-</span><span class='line'>
-</span><span class='line'>    . bin/activate.fish
-</span><span class='line'>
-</span><span class='line'>    if test (count $argv) -gt 1
-</span><span class='line'>      if test $argv[2] = "open"
-</span><span class='line'>        set -gx WORKON_OPEN_SUBLIME True
-</span><span class='line'>      end
-</span><span class='line'>    else
-</span><span class='line'>      set -ge WORKON_OPEN_SUBLIME
-</span><span class='line'>    end
-</span><span class='line'>
-</span><span class='line'>    # open sublime text
-</span><span class='line'>    if test -n "$WORKON_OPEN_SUBLIME"
-</span><span class='line'>      open {$WORKON_SRC_DIR}/{$argv[1]}.sublime-project
-</span><span class='line'>    end
-</span><span class='line'>
-</span><span class='line'>    # change to working dir
-</span><span class='line'>    if test -n "$WORKON_SRC_DIR"
-</span><span class='line'>      cd {$WORKON_SRC_DIR}/{$argv[1]}
-</span><span class='line'>    end
-</span><span class='line'>  else
-</span><span class='line'>    echo "$tgt not found"
-</span><span class='line'>  end
-</span><span class='line'>end
-</span><span class='line'>
-</span><span class='line'>complete -c workon -a "(cd $WORKON_HOME; ls -d *)"</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li><a href="http://adventure.fardo.gs">Adventure</a>: My &#8220;Choose your own adventure&#8221;-like story builder. This hasn&#8217;t seen an update since early 2012; very few people were using it. Re-launching this application would require a considerable effort, so I&#8217;m taking this offline for the foreseeable future. It&#8217;s been backed up, and the source code has been <a href="https://github.com/fardog/adventure">open sourced</a>. If anyone wants to help resurrect this, please contact me via <a href="https://twitter.com/milkandtang">twitter</a>.</li>
+<li><a href="http://isthisdst.us/">Is this DST?</a>: My geo-aware single-serving site that lets you know if you&#8217;re in daylight saving time or not. Similar to above, I&#8217;m taking it offline vs the effort to relaunch. Again, <a href="https://github.com/fardog/isthisdst">source code is available</a>. I may get the urge to bring this one back online again.</li>
+<li><a href="http://www.fardogllc.com">Far Dog LLC</a>: I spun down this LLC a few years ago, the website never had much on it.</li>
+</ul>
 
 
-<p>Then, define the necessary environment variables in your <code>~/.config/fish/config.fish</code> file:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>set -gx WORKON_HOME ~/Documents/virtual_environments
-</span><span class='line'>set -gx WORKON_SRC_DIR ~/Documents/code
-</span><span class='line'>set -gx WORKON_OPEN_SUBLIME True</span></code></pre></td></tr></table></div></figure>
-
-
-<p>As you might imagine, this is set up for how I work, but it wouldn&#8217;t be difficult to customize for your needs. Since this uses the virtualenv-provided <code>activate.fish</code> script, the <code>deactivate</code> command works as expected, as well as any other usual functions.</p>
+<p>Thanks for understanding. Onward!</p>
 </div>
 
 
@@ -214,12 +133,12 @@
   
 
 
-<time datetime="2013-02-15T00:15:00-08:00" pubdate data-updated="true">Feb 15<span>th</span>, 2013</time>
+<time datetime="2014-10-23T14:15:00-07:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2014</time>
           
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/python/'>Python</a>, <a class='category' href='/blog/categories/code/'>code</a>, <a class='category' href='/blog/categories/fish/'>fish</a>, <a class='category' href='/blog/categories/virtualenv/'>virtualenv</a>, <a class='category' href='/blog/categories/virtualenvwrapper/'>virtualenvwrapper</a>
+    <a class='category' href='/blog/categories/projects/'>projects</a>
   
 </span>
 
@@ -235,10 +154,8 @@
         
         <p class="meta">
           
-            <a class="basic-alignment left" href="/blog/2012/12/13/is-this-daylight-saving-time/" title="Previous Post: Is this Daylight Saving Time?">&laquo; Is this Daylight Saving Time?</a>
+            <a class="basic-alignment left" href="/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/" title="Previous Post: Mac OS X Audio in node.js, and a Chromecast">&laquo; Mac OS X Audio in node.js, and a Chromecast</a>
           
-          
-            <a class="basic-alignment right" href="/blog/2013/02/16/making-noise-in-python/" title="Next Post: Making noise in Python">Making noise in Python &raquo;</a>
           
         </p>
       </footer>
@@ -333,8 +250,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell/';
-        var disqus_url = 'http://milkandtang.com/blog/2013/02/15/simple-workon-command-for-fish-shell/';
+        var disqus_identifier = 'http://milkandtang.com/blog/2014/10/23/retiring-old-projects/';
+        var disqus_url = 'http://milkandtang.com/blog/2014/10/23/retiring-old-projects/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -14,7 +14,7 @@
   <title>milkandtang</title>
   <meta name="author" content="Nathan Wittstock">
   
-  <meta name="description" content="A few weeks ago, a simple idea formed: why can&#8217;t you easily stream system audio to a Chromecast? Sure, if your chosen listening application &hellip;">
+  <meta name="description" content="Some changes are coming; they&#8217;re changes for me, but a secondary effect is that I no longer have free hosting for some projects that have been &hellip;">
   
 
 
@@ -73,6 +73,53 @@
       <div class="row">
 <div class="blog-index nine columns">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/10/23/retiring-old-projects/">Retiring Some Old Projects</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-10-23T14:15:00-07:00" pubdate data-updated="true">Oct 23<span>rd</span>, 2014</time>
+        
+         | <a href="/blog/2014/10/23/retiring-old-projects/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Some changes are coming; they&#8217;re changes for me, but a secondary effect is that I no longer have free hosting for some projects that have been in unmaintained-but-still-running status for the last few years. I&#8217;m taking the following offline:</p>
+
+<ul>
+<li><a href="http://adventure.fardo.gs">Adventure</a>: My &#8220;Choose your own adventure&#8221;-like story builder. This hasn&#8217;t seen an update since early 2012; very few people were using it. Re-launching this application would require a considerable effort, so I&#8217;m taking this offline for the foreseeable future. It&#8217;s been backed up, and the source code has been <a href="https://github.com/fardog/adventure">open sourced</a>. If anyone wants to help resurrect this, please contact me via <a href="https://twitter.com/milkandtang">twitter</a>.</li>
+<li><a href="http://isthisdst.us/">Is this DST?</a>: My geo-aware single-serving site that lets you know if you&#8217;re in daylight saving time or not. Similar to above, I&#8217;m taking it offline vs the effort to relaunch. Again, <a href="https://github.com/fardog/isthisdst">source code is available</a>. I may get the urge to bring this one back online again.</li>
+<li><a href="http://www.fardogllc.com">Far Dog LLC</a>: I spun down this LLC a few years ago, the website never had much on it.</li>
+</ul>
+
+
+<p>Thanks for understanding. Onward!</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -666,107 +713,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/02/16/making-noise-in-python/">Making Noise in Python</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-02-16T14:44:00-08:00" pubdate data-updated="true">Feb 16<span>th</span>, 2013</time>
-        
-         | <a href="/blog/2013/02/16/making-noise-in-python/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>I&#8217;ve been working with <a href="https://github.com/bastibe/PyAudio">PyAudio</a> lately, on a project to synchronize sound streams across multiple devices. Nothing to say on that front yet, but I do have a nice snippet for programatically generating a tone:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">math</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">numpy</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">pyaudio</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">sine</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rate</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">length</span> <span class="o">*</span> <span class="n">rate</span><span class="p">)</span>
-</span><span class='line'>    <span class="n">factor</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">rate</span>
-</span><span class='line'>    <span class="k">return</span> <span class="n">numpy</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">length</span><span class="p">)</span> <span class="o">*</span> <span class="n">factor</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">def</span> <span class="nf">play_tone</span><span class="p">(</span><span class="n">stream</span><span class="p">,</span> <span class="n">frequency</span><span class="o">=</span><span class="mi">440</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">44100</span><span class="p">):</span>
-</span><span class='line'>    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span class='line'>    <span class="n">chunks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sine</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">rate</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">chunk</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.25</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">stream</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">chunk</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">tostring</span><span class="p">())</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
-</span><span class='line'>    <span class="n">p</span> <span class="o">=</span> <span class="n">pyaudio</span><span class="o">.</span><span class="n">PyAudio</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">stream</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="n">pyaudio</span><span class="o">.</span><span class="n">paFloat32</span><span class="p">,</span>
-</span><span class='line'>                    <span class="n">channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mi">44100</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">play_tone</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>    <span class="n">stream</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-</span><span class='line'>    <span class="n">p</span><span class="o">.</span><span class="n">terminate</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>This simply generates a sine wave of a specified frequency and length, and writes it out to an already open PyAudio stream. A pleasant tone is produced. It&#8217;s not too fancy, but it beats loading a wave file from disk.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -798,6 +744,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/10/23/retiring-old-projects/">Retiring some old projects</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/09/26/nodejs-mac-osx-audio-and-a-chromecast/">Mac OS X Audio in node.js, and a Chromecast</a>
       </li>
     
@@ -811,10 +761,6 @@
     
       <li class="post">
         <a href="/blog/2013/10/08/an-addendum-to-fixing-a-famicom-disk-system/">An Addendum to &#8220;Fixing a Famicom Disk System&#8221;</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/08/27/getting-wifi-on-a-headless-raspberry-pi/">Getting WiFi on a Headless Raspberry Pi</a>
       </li>
     
   </ul>
